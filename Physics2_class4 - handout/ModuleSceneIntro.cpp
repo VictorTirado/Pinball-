@@ -67,7 +67,7 @@ update_status ModuleSceneIntro::Update()
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		// Pivot 0, 0
-		int rod1[42] = {
+		/*int rod1[42] = {
 			452, 806,
 			454, 857,
 			446, 857,
@@ -89,9 +89,56 @@ update_status ModuleSceneIntro::Update()
 			452, 712,
 			452, 793,
 			452, 811
+		};*/
+		int pinball[88] = {
+			505, 858,
+			483, 858,
+			482, 500,
+			483, 266,
+			478, 238,
+			463, 199,
+			443, 169,
+			426, 154,
+			393, 136,
+			370, 127,
+			349, 122,
+			317, 122,
+			300, 122,
+			277, 120,
+			190, 120,
+			105, 119,
+			91, 120,
+			91, 142,
+			92, 158,
+			70, 186,
+			44, 227,
+			30, 230,
+			28, 268,
+			29, 391,
+			95, 425,
+			31, 560,
+			28, 647,
+			30, 739,
+			172, 831,
+			172, 858,
+			3, 859,
+			2, 716,
+			2, 520,
+			2, 320,
+			2, 119,
+			2, 18,
+			398, 18,
+			503, 18,
+			503, 119,
+			503, 277,
+			504, 447,
+			503, 599,
+			503, 826,
+			504, 853
 		};
 
-		rods.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rod1, 42));
+		rods.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), pinball, 88));
+		//App->physics->CreateChain(0,0,)
 	}
 
 	// Prepare for raycast ------------------------------------------------------
