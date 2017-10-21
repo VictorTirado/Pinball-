@@ -9,7 +9,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = box = rick = NULL;
+	circle = box = rod = NULL;
 	ray_on = false;
 	sensed = false;
 }
@@ -27,7 +27,7 @@ bool ModuleSceneIntro::Start()
 
 	circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
+	//rod = App->textures->Load("pinball/rick_head.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
@@ -67,42 +67,31 @@ update_status ModuleSceneIntro::Update()
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		// Pivot 0, 0
-		int rick_head[64] = {
-			14, 36,
-			42, 40,
-			40, 0,
-			75, 30,
-			88, 4,
-			94, 39,
-			111, 36,
-			104, 58,
-			107, 62,
-			117, 67,
-			109, 73,
-			110, 85,
-			106, 91,
-			109, 99,
-			103, 104,
-			100, 115,
-			106, 121,
-			103, 125,
-			98, 126,
-			95, 137,
-			83, 147,
-			67, 147,
-			53, 140,
-			46, 132,
-			34, 136,
-			38, 126,
-			23, 123,
-			30, 114,
-			10, 102,
-			29, 90,
-			0, 75,
-			30, 62
+		int rod1[42] = {
+			452, 806,
+			454, 857,
+			446, 857,
+			445, 798,
+			444, 697,
+			445, 588,
+			445, 474,
+			445, 363,
+			445, 258,
+			445, 238,
+			394, 187,
+			400, 182,
+			452, 229,
+			455, 236,
+			453, 293,
+			453, 377,
+			454, 474,
+			454, 589,
+			452, 712,
+			452, 793,
+			452, 811
 		};
 
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
+		rods.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rod1, 42));
 	}
 
 	// Prepare for raycast ------------------------------------------------------
@@ -142,13 +131,13 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	c = ricks.getFirst();
+	c = rods.getFirst();
 
 	while(c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
+		App->renderer->Blit(rod, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
