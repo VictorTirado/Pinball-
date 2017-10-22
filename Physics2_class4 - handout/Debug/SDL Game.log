@@ -1,10 +1,18 @@
 ﻿  ModuleSceneIntro.cpp
-c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(203): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(205): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(207): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(210): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(218): warning C4101: 'y': variable local sin referencia
-c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(218): warning C4101: 'x': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(214): warning C4101: 'c1': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(209): warning C4101: 'bg5': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(197): warning C4101: 'bg2': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(205): warning C4101: 'bg4': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(222): warning C4101: 'c3': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(218): warning C4101: 'c2': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(193): warning C4101: 'bg1': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(201): warning C4101: 'bg3': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(310): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(312): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(314): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(317): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(325): warning C4101: 'y': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(325): warning C4101: 'x': variable local sin referencia
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\limits(210): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
   SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Pinball-\Physics2_class4 - handout\Debug\2D Physics - class 4.exe
   SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Pinball-\Physics2_class4 - handout\Debug\2D Physics - class 4.pdb (Full PDB)
