@@ -27,8 +27,61 @@ bool ModuleSceneIntro::Start()
 
 	circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
-	//rod = App->textures->Load("pinball/rick_head.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	bg = App->textures->Load("pinball/background.png");
+	rect_bg.h = SCREEN_HEIGHT;
+	rect_bg.w = SCREEN_WIDTH;
+	rect_bg.x = 0;
+	rect_bg.y = 0;
+
+	int background[84] = {
+		165, 811,
+		173, 818,
+		172, 843,
+		0, 842,
+		0, 331,
+		0, 0,
+		502, 0,
+		502, 558,
+		502, 843,
+		480, 843,
+		480, 559,
+		480, 265,
+		480, 246,
+		478, 228,
+		467, 200,
+		454, 175,
+		439, 153,
+		418, 135,
+		378, 116,
+		348, 107,
+		298, 107,
+		283, 104,
+		153, 103,
+		90, 104,
+		90, 142,
+		63, 178,
+		35, 213,
+		27, 215,
+		26, 240,
+		29, 257,
+		34, 284,
+		44, 335,
+		48, 358,
+		88, 396,
+		94, 412,
+		69, 463,
+		68, 512,
+		42, 522,
+		28, 547,
+		27, 722,
+		144, 799,
+		159, 808
+	};
+	PhysBody* bg;
+	bg = App->physics->CreateChain(0, 0, background, 84);
+	bg->body->SetType(b2_staticBody);
+	bg->body->GetFixtureList()->SetDensity(0.1f);
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
 
@@ -46,6 +99,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		ray_on = !ray_on;
@@ -90,54 +144,9 @@ update_status ModuleSceneIntro::Update()
 			452, 793,
 			452, 811
 		};*/
-		int pinball[88] = {
-			505, 858,
-			483, 858,
-			482, 500,
-			483, 266,
-			478, 238,
-			463, 199,
-			443, 169,
-			426, 154,
-			393, 136,
-			370, 127,
-			349, 122,
-			317, 122,
-			300, 122,
-			277, 120,
-			190, 120,
-			105, 119,
-			91, 120,
-			91, 142,
-			92, 158,
-			70, 186,
-			44, 227,
-			30, 230,
-			28, 268,
-			29, 391,
-			95, 425,
-			31, 560,
-			28, 647,
-			30, 739,
-			172, 831,
-			172, 858,
-			3, 859,
-			2, 716,
-			2, 520,
-			2, 320,
-			2, 119,
-			2, 18,
-			398, 18,
-			503, 18,
-			503, 119,
-			503, 277,
-			504, 447,
-			503, 599,
-			503, 826,
-			504, 853
-		};
+		
 
-		rods.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), pinball, 88));
+		//rods.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), pinball, 88));
 		//App->physics->CreateChain(0,0,)
 	}
 

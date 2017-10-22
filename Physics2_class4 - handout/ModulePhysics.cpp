@@ -31,27 +31,16 @@ bool ModulePhysics::Start()
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	world->SetContactListener(this);
 
-	// needed to create joints like mouse joint
+	
 	b2BodyDef bd;
 	ground = world->CreateBody(&bd);
 
-	// big static circle as "ground" in the middle of the screen
+
 	int x = SCREEN_WIDTH / 2;
 	int y = SCREEN_HEIGHT / 1.5f;
 	int diameter = SCREEN_WIDTH / 2;
 
-	/*b2BodyDef body;
-	body.type = b2_staticBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
-	b2Body* big_ball = world->CreateBody(&body);
-
-	b2CircleShape shape;
-	shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
-
-	b2FixtureDef fixture;
-	fixture.shape = &shape;
-	big_ball->CreateFixture(&fixture);*/
+	
 
 	return true;
 }
@@ -97,6 +86,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	pbody->width = pbody->height = radius;
 
 	return pbody;
+	
 }
 
 PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
@@ -294,11 +284,11 @@ update_status ModulePhysics::PostUpdate()
 
 	// TODO 3: If the player keeps pressing the mouse button, update
 	// target position and draw a red line between both anchor points
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-		b2Vec2 pos = body_found->GetPosition();
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
+		//b2Vec2 pos = body_found->GetPosition();
 		b2Vec2 pixels_pos;
-		pixels_pos.x = PIXEL_TO_METERS(pos.x);
-		pixels_pos.y = PIXEL_TO_METERS(pos.y);
+		pixels_pos.x = PIXEL_TO_METERS(App->input->GetMouseX());
+		pixels_pos.y = PIXEL_TO_METERS(App->input->GetMouseY());
 		App->renderer->DrawLine(pixels_mouse.x, pixels_mouse.y, pixels_pos.x, pixels_pos.y, 254, 000, 000, 1);
 
 	}
