@@ -224,6 +224,67 @@ bool ModuleSceneIntro::Start()
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
 
+	//fliper1
+	b2BodyDef fliper1;
+	fliper1.type = b2_dynamicBody;
+	fliper1.position.Set(PIXEL_TO_METERS(185), PIXEL_TO_METERS(740));
+
+	b2Body* b = App->physics->world->CreateBody(&fliper1);
+	b2PolygonShape box;
+	box.SetAsBox(PIXEL_TO_METERS(75) * 0.5f, PIXEL_TO_METERS(20) * 0.5f);
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.density = 1.0f;
+
+	b->CreateFixture(&fixture);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = 75 * 0.5f;
+	pbody->height = 20 * 0.5f;
+
+	b2BodyDef fliper1sphere;
+	fliper1sphere.type = b2_staticBody;
+	fliper1sphere.position.Set(PIXEL_TO_METERS(155), PIXEL_TO_METERS(740));
+
+	b2Body* b2 = App->physics->world->CreateBody(&fliper1sphere);
+
+	b2CircleShape shape;
+	shape.m_radius = PIXEL_TO_METERS(5);
+	b2FixtureDef fixture2;
+	fixture2.shape = &shape;
+	fixture2.density = 1.0f;
+	fixture2.restitution = 0.8f;
+
+	b2->CreateFixture(&fixture2);
+
+	PhysBody* pbody2 = new PhysBody();
+	pbody2->body = b2;
+	b2->SetUserData(pbody2);
+	pbody2->width = pbody2->height = 5;
+
+	b2RevoluteJointDef fliper1Joint;
+	fliper1Joint.bodyA = b2;
+	fliper1Joint.bodyB = b;
+	//fliper1Joint.collideConnected = true;
+	fliper1Joint.localAnchorA.Set(0, 0);
+	fliper1Joint.localAnchorB.Set(5, 0);
+	fliper1Joint.referenceAngle = -45 * DEGTORAD;
+	fliper1Joint.enableLimit = true;
+	fliper1Joint.lowerAngle = -45 * DEGTORAD;
+	fliper1Joint.upperAngle = 45 * DEGTORAD;
+	b2Joint* m_joint = (b2RevoluteJoint*)App->physics->world->CreateJoint(&fliper1Joint);
+	
+
+	b2Body* fliper2;
+	bg = App->physics->CreateRectangle(290, 740, 75, 20);
+	bg->body->SetType(b2_staticBody);
+	bg->body->GetFixtureList()->SetDensity(0.1f);
+	
+
+
 
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
@@ -273,8 +334,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		if(c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
-			App->renderer->Blit(ball, x, y, NULL, 1.0f, c->data->GetRotation());
+		App->renderer->Blit(ball, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
