@@ -115,6 +115,53 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 	return pbody;
 }
 
+b2Body* ModulePhysics::createFlipperR() {
+	b2BodyDef sawDef;
+	sawDef.type = b2_dynamicBody;
+	sawDef.position.Set(PIXEL_TO_METERS(290), PIXEL_TO_METERS(750));
+
+	b2Body* sawBody = world->CreateBody(&sawDef);
+
+	b2PolygonShape box;
+	box.SetAsBox(PIXEL_TO_METERS(75) * 0.5f, PIXEL_TO_METERS(20) * 0.5f);
+
+	b2FixtureDef sawFixture;
+	sawFixture.shape = &box;
+	sawFixture.density = 2;
+	sawBody->CreateFixture(&sawFixture);
+
+	b2BodyDef circleBodyDef;
+	circleBodyDef.position.Set(PIXEL_TO_METERS(310), PIXEL_TO_METERS(750));
+	circleBodyDef.type = b2_staticBody;
+
+	b2Body* circle_body = world->CreateBody(&circleBodyDef);
+
+	b2CircleShape my_circle;
+	my_circle.m_radius = PIXEL_TO_METERS(1);
+	b2FixtureDef my_fixture;
+	my_fixture.shape = &my_circle;
+	circle_body->CreateFixture(&my_fixture);
+
+	b2RevoluteJointDef revoluteJointDef;
+	revoluteJointDef.bodyA = sawBody;
+	revoluteJointDef.bodyB = circle_body;
+	revoluteJointDef.localAnchorA.Set(0.5, 0);
+	revoluteJointDef.localAnchorB.Set(0, 0);
+	revoluteJointDef.enableLimit = true;
+	revoluteJointDef.upperAngle = -25 * DEGTORAD;
+	revoluteJointDef.lowerAngle = 25 * DEGTORAD;
+	revoluteJointDef.maxMotorTorque = 10.0;
+	revoluteJointDef.motorSpeed = 5.0;
+	revoluteJointDef.enableMotor = true;
+	world->CreateJoint(&revoluteJointDef);
+
+	return sawBody;
+}
+
+//PhysBody* ModulePhysics::createFlipperL() {
+//
+//}
+
 PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int height)
 {
 	b2BodyDef body;
