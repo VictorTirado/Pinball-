@@ -49,6 +49,7 @@ public:
 	PhysBody* createFlipperL();
 	b2Body* createFlipperR();
 	b2World* world;
+	b2Body* sawBody;
 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);

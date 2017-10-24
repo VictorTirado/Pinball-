@@ -453,6 +453,16 @@ update_status ModuleSceneIntro::Update()
 		circles.getLast()->data->listener = this;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		App->physics->sawBody->ApplyTorque(150.0, true);
+	}
+	else {
+		if (App->physics->sawBody->IsAwake()) {
+			App->physics->sawBody->ApplyTorque(-150.0, false);
+		}
+	}
+
 
 	// Prepare for raycast ------------------------------------------------------
 	
