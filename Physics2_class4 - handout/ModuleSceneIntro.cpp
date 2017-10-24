@@ -182,47 +182,183 @@ bool ModuleSceneIntro::Start()
 		329, 753,
 		340, 754,
 		349, 748
-
-
 	};
 	//Bars
+	int bar[16] = {
+		146, 241,
+		146, 182,
+		147, 177,
+		154, 177,
+		156, 183,
+		156, 242,
+		155, 249,
+		147, 248
+	};
+
+	int bar1[16] = {
+		196, 240,
+		196, 184,
+		194, 177,
+		189, 177,
+		187, 185,
+		186, 241,
+		188, 248,
+		195, 248
+	};
+
+	int bar2[18] = {
+		238, 237,
+		236, 248,
+		228, 248,
+		226, 237,
+		226, 183,
+		228, 176,
+		235, 176,
+		237, 183,
+		237, 233
+	};
+
+	int bar3[18] = {
+		266, 182,
+		269, 176,
+		274, 176,
+		277, 182,
+		277, 242,
+		275, 248,
+		269, 248,
+		266, 241,
+		266, 186
+	};
+
+	int bar4[18] = {
+		308, 183,
+		310, 177,
+		316, 177,
+		318, 183,
+		319, 244,
+		316, 248,
+		310, 248,
+		308, 243,
+		308, 188
+	};
+	//Rebounds
+
+	int rebound[10] = {
+		84, 392,
+		90, 386,
+		58, 353,
+		51, 360,
+		81, 388
+	};
+
+	int rebound1[10] = {
+		376, 392,
+		370, 386,
+		404, 355,
+		410, 361,
+		380, 389
+	};
+
+	int rebound2[10] = {
+		157, 664,
+		167, 658,
+		145, 591,
+		135, 592,
+		155, 658
+	};
+
+	int rebound3[10] = {
+		316, 665,
+		307, 661,
+		330, 594,
+		340, 594,
+		318, 660
+	};
+
+
+
+	//Background
 	PhysBody* bg;
 	bg = App->physics->CreateChain(0, 0, background, 84);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
-	PhysBody* bg1;
+
+
 	bg = App->physics->CreateChain(0, 0, background1, 24);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
-	PhysBody* bg2;
+
+
 	bg = App->physics->CreateChain(0, 0, background2, 26);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
-	PhysBody* bg3;
+
+
 	bg = App->physics->CreateChain(0, 0, background3, 62);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
-	PhysBody* bg4;
+
+
 	bg = App->physics->CreateChain(0, 0, background4, 30);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
-	PhysBody* bg5;
+
+
 	bg = App->physics->CreateChain(0, 0, background5, 44);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
+
 	//Circle
-	PhysBody* c1;
-	bg = App->physics->CreateCircle(167,320,33);
+	bg = App->physics->CreateCircle(167, 320, 33);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
-	PhysBody* c2;
+
 	bg = App->physics->CreateCircle(304, 320, 33);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
-	PhysBody* c3;
+
 	bg = App->physics->CreateCircle(230, 403, 33);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
+
+	//Bars
+	bg = App->physics->CreateChain(0, 0, bar, 16);
+	bg->body->SetType(b2_staticBody);
+	bg->body->GetFixtureList()->SetDensity(0.1f);
+
+	bg = App->physics->CreateChain(0, 0, bar1, 16);
+	bg->body->SetType(b2_staticBody);
+	bg->body->GetFixtureList()->SetDensity(0.1f);
+
+	bg = App->physics->CreateChain(0, 0, bar2, 18);
+	bg->body->SetType(b2_staticBody);
+	bg->body->GetFixtureList()->SetDensity(0.1f);
+
+	bg = App->physics->CreateChain(0, 0, bar3, 18);
+	bg->body->SetType(b2_staticBody);
+	bg->body->GetFixtureList()->SetDensity(0.1f);
+
+	bg = App->physics->CreateChain(0, 0, bar4, 16);
+	bg->body->SetType(b2_staticBody);
+	bg->body->GetFixtureList()->SetDensity(0.1f);
+
+	//Rebounds(Blue)
+	PhysBody* rebounds;
+	rebounds = App->physics->CreateChain(0, 0, rebound, 10);
+	rebounds->body->SetType(b2_staticBody);
+	rebounds->body->GetFixtureList()->SetRestitution(10.0f);
+
+	rebounds = App->physics->CreateChain(0, 0, rebound1, 10);
+	rebounds->body->SetType(b2_staticBody);
+	rebounds->body->GetFixtureList()->SetRestitution(10.0f);
+
+	rebounds = App->physics->CreateChain(0, 0, rebound2, 10);
+	rebounds->body->SetType(b2_staticBody);
+	rebounds->body->GetFixtureList()->SetRestitution(10.0f);
+
+	rebounds = App->physics->CreateChain(0, 0, rebound3, 10);
+	rebounds->body->SetType(b2_staticBody);
+	rebounds->body->GetFixtureList()->SetRestitution(10.0f);
 	App->physics->createFlipperR();
 	//fliper1
 	b2BodyDef fliper1;
