@@ -311,15 +311,18 @@ bool ModuleSceneIntro::Start()
 	//Circle
 	bg = App->physics->CreateCircle(167, 320, 33);
 	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetDensity(0.5f);
+	bg->body->GetFixtureList()->SetRestitution(2.5f);
 
 	bg = App->physics->CreateCircle(304, 320, 33);
 	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetDensity(0.5f);
+	bg->body->GetFixtureList()->SetRestitution(2.5f);
 
 	bg = App->physics->CreateCircle(230, 403, 33);
 	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetDensity(0.5f);
+	bg->body->GetFixtureList()->SetRestitution(2.5f);
 
 	//Bars
 	bg = App->physics->CreateChain(0, 0, bar, 16);
@@ -346,27 +349,23 @@ bool ModuleSceneIntro::Start()
 	PhysBody* rebounds;
 	rebounds = App->physics->CreateChain(0, 0, rebound, 10);
 	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(3.0f);
+	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
 
 	rebounds = App->physics->CreateChain(0, 0, rebound1, 10);
 	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(3.0f);
+	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
 
 	rebounds = App->physics->CreateChain(0, 0, rebound2, 10);
 	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(3.0f);
+	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
 
 	rebounds = App->physics->CreateChain(0, 0, rebound3, 10);
 	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(3.0f);
+	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
 
 	App->physics->createFlipperR();
 
-	//b2Body* fliper2;
-	//bg = App->physics->CreateRectangle(290, 740, 75, 20);
-	//bg->body->SetType(b2_staticBody);
-	//bg->body->GetFixtureList()->SetDensity(0.1f);
-	//
+	App->physics->createFlipperL();
 
 
 
@@ -403,11 +402,21 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		App->physics->sawBody->ApplyTorque(1000.0, true);
+		App->physics->sawBody->ApplyTorque(250.0, true);
 	}
 	else {
 		if (App->physics->sawBody->IsAwake()) {
-			App->physics->sawBody->ApplyTorque(-1000.0, false);
+			App->physics->sawBody->ApplyTorque(-250.0, false);
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		App->physics->sawBody2->ApplyTorque(-250.0, true);
+	}
+	else {
+		if (App->physics->sawBody2->IsAwake()) {
+			App->physics->sawBody2->ApplyTorque(250.0, false);
 		}
 	}
 
