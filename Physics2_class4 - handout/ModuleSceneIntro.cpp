@@ -346,73 +346,21 @@ bool ModuleSceneIntro::Start()
 	PhysBody* rebounds;
 	rebounds = App->physics->CreateChain(0, 0, rebound, 10);
 	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(10.0f);
+	rebounds->body->GetFixtureList()->SetRestitution(3.0f);
 
 	rebounds = App->physics->CreateChain(0, 0, rebound1, 10);
 	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(10.0f);
+	rebounds->body->GetFixtureList()->SetRestitution(3.0f);
 
 	rebounds = App->physics->CreateChain(0, 0, rebound2, 10);
 	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(10.0f);
+	rebounds->body->GetFixtureList()->SetRestitution(3.0f);
 
 	rebounds = App->physics->CreateChain(0, 0, rebound3, 10);
 	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(10.0f);
+	rebounds->body->GetFixtureList()->SetRestitution(3.0f);
+
 	App->physics->createFlipperR();
-	//fliper1
-	b2BodyDef fliper1;
-	//fliper1.type = b2_dynamicBody;
-	//fliper1.position.Set(PIXEL_TO_METERS(185), PIXEL_TO_METERS(740));
-
-	//b2Body* b = App->physics->world->CreateBody(&fliper1);
-	//b2PolygonShape box;
-	//box.SetAsBox(PIXEL_TO_METERS(75) * 0.5f, PIXEL_TO_METERS(20) * 0.5f);
-
-	//b2FixtureDef fixture;
-	//fixture.shape = &box;
-	//fixture.density = 1.0f;
-
-	//b->CreateFixture(&fixture);
-
-	//PhysBody* pbody = new PhysBody();
-	//pbody->body = b;
-	//b->SetUserData(pbody);
-	//pbody->width = 75 * 0.5f;
-	//pbody->height = 20 * 0.5f;
-
-	//b2BodyDef fliper1sphere;
-	//fliper1sphere.type = b2_staticBody;
-	//fliper1sphere.position.Set(PIXEL_TO_METERS(155), PIXEL_TO_METERS(740));
-
-	//b2Body* b2 = App->physics->world->CreateBody(&fliper1sphere);
-
-	//b2CircleShape shape;
-	//shape.m_radius = PIXEL_TO_METERS(5);
-	//b2FixtureDef fixture2;
-	//fixture2.shape = &shape;
-	//fixture2.density = 1.0f;
-	//fixture2.restitution = 0.8f;
-
-	//b2->CreateFixture(&fixture2);
-
-	//PhysBody* pbody2 = new PhysBody();
-	//pbody2->body = b2;
-	//b2->SetUserData(pbody2);
-	//pbody2->width = pbody2->height = 5;
-
-	//b2RevoluteJointDef fliper1Joint;
-	//fliper1Joint.bodyA = b2;
-	//fliper1Joint.bodyB = b;
-	////fliper1Joint.collideConnected = true;
-	//fliper1Joint.localAnchorA.Set(0, 0);
-	//fliper1Joint.localAnchorB.Set(5, 0);
-	//fliper1Joint.referenceAngle = -45 * DEGTORAD;
-	//fliper1Joint.enableLimit = true;
-	//fliper1Joint.lowerAngle = -45 * DEGTORAD;
-	//fliper1Joint.upperAngle = 45 * DEGTORAD;
-	//b2Joint* m_joint = (b2RevoluteJoint*)App->physics->world->CreateJoint(&fliper1Joint);
-	//
 
 	//b2Body* fliper2;
 	//bg = App->physics->CreateRectangle(290, 740, 75, 20);
@@ -453,13 +401,13 @@ update_status ModuleSceneIntro::Update()
 		circles.getLast()->data->listener = this;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		App->physics->sawBody->ApplyTorque(150.0, true);
+		App->physics->sawBody->ApplyTorque(1000.0, true);
 	}
 	else {
 		if (App->physics->sawBody->IsAwake()) {
-			App->physics->sawBody->ApplyTorque(-150.0, false);
+			App->physics->sawBody->ApplyTorque(-1000.0, false);
 		}
 	}
 
