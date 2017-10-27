@@ -94,6 +94,7 @@ bool ModuleSceneIntro::Start()
 		313, 677,
 		336, 610
 	};
+
 	int background2[26] = {
 		106, 648,
 		106, 583,
@@ -159,30 +160,25 @@ bool ModuleSceneIntro::Start()
 		135, 749,
 		127, 751
 	};
-	int background5[44] = {
-		354, 744,
-		377, 727,
-		391, 717,
-		402, 709,
-		407, 704,
-		408, 662,
-		408, 595,
-		408, 559,
-		407, 554,
-		401, 554,
-		398, 559,
-		398, 595,
-		398, 662,
+	
+	int background5[30] = {
+		398, 610,
+		398, 556,
+		403, 553,
+		408, 556,
+		408, 695,
+		406, 706,
+		377, 722,
+		343, 747,
+		330, 752,
+		323, 747,
+		320, 740,
+		329, 729,
+		386, 689,
 		398, 680,
-		371, 699,
-		343, 719,
-		328, 729,
-		322, 736,
-		323, 746,
-		329, 753,
-		340, 754,
-		349, 748
+		398, 616
 	};
+
 	//Bars
 	int bar[16] = {
 		146, 241,
@@ -288,23 +284,19 @@ bool ModuleSceneIntro::Start()
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
 
-
 	bg = App->physics->CreateChain(0, 0, background2, 26);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
-
 
 	bg = App->physics->CreateChain(0, 0, background3, 62);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
 
-
 	bg = App->physics->CreateChain(0, 0, background4, 30);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
 
-
-	bg = App->physics->CreateChain(0, 0, background5, 44);
+	bg = App->physics->CreateChain(0, 0, background5, 30);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
 
