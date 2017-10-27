@@ -6,10 +6,11 @@
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
+#include "Animation.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = box = rod = NULL;
+	
 	ray_on = false;
 	sensed = false;
 }
@@ -25,16 +26,24 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("pinball/wheel.png"); 
-	box = App->textures->Load("pinball/crate.png");
 	ball = App->textures->Load("pinball/ball.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	bg = App->textures->Load("pinball/background.png");
+	lights = App->textures->Load("pinball/sprites.png");
 	rect_bg.h = SCREEN_HEIGHT;
 	rect_bg.w = SCREEN_WIDTH;
 	rect_bg.x = 0;
 	rect_bg.y = 0;
 
+	arrows.h = 87;
+	arrows.w = 105;
+	arrows.x = 66;
+	arrows.y = 294;
+
+	
+	arrow.PushBack({69,311,70,70});
+	
+	
 	int background[84] = {
 		165, 811,
 		173, 818,
@@ -378,6 +387,9 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	current_animation = &arrow;
+	App->renderer->Blit(lights,0, 0, &(current_animation->GetCurrentFrame()), 1.0f);
+	//App->renderer->Blit(ball, x, y, NULL, 1.0f, c->data->GetRotation());
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
