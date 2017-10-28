@@ -324,20 +324,22 @@ bool ModuleSceneIntro::Start()
 	bg->body->GetFixtureList()->SetRestitution(0.1f);
 
 	//Circle
-	bg = App->physics->CreateCircle(167, 320, 33);
-	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.5f);
-	bg->body->GetFixtureList()->SetRestitution(2.5f);
+	PhysBody* circles;
 
-	bg = App->physics->CreateCircle(304, 320, 33);
-	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.5f);
-	bg->body->GetFixtureList()->SetRestitution(2.5f);
+	circles = App->physics->CreateCircle(167, 320, 33);
+	circles->body->SetType(b2_staticBody);
+	circles->body->GetFixtureList()->SetDensity(0.5f);
+	circles->body->GetFixtureList()->SetRestitution(2.5f);
 
-	bg = App->physics->CreateCircle(230, 403, 33);
-	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.5f);
-	bg->body->GetFixtureList()->SetRestitution(2.5f);
+	circles = App->physics->CreateCircle(304, 320, 33);
+	circles->body->SetType(b2_staticBody);
+	circles->body->GetFixtureList()->SetDensity(0.5f);
+	circles->body->GetFixtureList()->SetRestitution(2.5f);
+
+	circles = App->physics->CreateCircle(230, 403, 33);
+	circles->body->SetType(b2_staticBody);
+	circles->body->GetFixtureList()->SetDensity(0.5f);
+	circles->body->GetFixtureList()->SetRestitution(2.5f);
 
 	//Bars
 	bg = App->physics->CreateChain(0, 0, bar, 16);
@@ -381,6 +383,8 @@ bool ModuleSceneIntro::Start()
 	App->physics->createFlipperR();
 
 	App->physics->createFlipperL();
+
+	App->physics->createSpring();
 
 
 
@@ -506,18 +510,21 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
 
+
 	App->audio->PlayFx(bonus_fx);
+	
 
-	/*
-	if(bodyA)
-	{
-		bodyA->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	}
 
-	if(bodyB)
-	{
-		bodyB->GetPosition(x, y);
-		App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	}*/
+	
+	//if(bodyA)
+	//{
+	//	bodyA->GetPosition(x, y);
+	//	App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
+	//}
+
+	//if(bodyB)
+	//{
+	//	bodyB->GetPosition(x, y);
+	//	App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
+	//}
 }

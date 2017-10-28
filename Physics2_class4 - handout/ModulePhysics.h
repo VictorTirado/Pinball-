@@ -48,9 +48,11 @@ public:
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	b2Body* createFlipperL();
 	b2Body* createFlipperR();
+	b2Body* createSpring();
 	b2World* world;
 	b2Body* sawBody;
 	b2Body* sawBody2;
+	b2Body* sawBody3;
 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);

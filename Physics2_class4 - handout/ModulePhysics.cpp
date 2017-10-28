@@ -202,6 +202,67 @@ b2Body* ModulePhysics::createFlipperL() {
 	return sawBody2;
 }
 
+b2Body* ModulePhysics::createSpring() {
+	b2BodyDef sawDef3;
+	sawDef3.type = b2_dynamicBody;
+	sawDef3.position.Set(PIXEL_TO_METERS(465), PIXEL_TO_METERS(750));
+
+	sawBody3 = world->CreateBody(&sawDef3);
+
+	b2PolygonShape box3;
+	box3.SetAsBox(PIXEL_TO_METERS(25) * 0.5f, PIXEL_TO_METERS(20) * 0.5f);
+
+	b2FixtureDef sawFixture3;
+	sawFixture3.shape = &box3;
+	sawFixture3.density = 2;
+	sawBody3->CreateFixture(&sawFixture3);
+
+	b2BodyDef quad2;
+	quad2.position.Set(PIXEL_TO_METERS(465), PIXEL_TO_METERS(750));
+	quad2.type = b2_staticBody;
+
+	b2Body* quad2body = world->CreateBody(&quad2);
+
+	b2PolygonShape my_quad2;
+	my_quad2.SetAsBox(PIXEL_TO_METERS(25) * 0.5f, PIXEL_TO_METERS(20) * 0.5f);
+	b2FixtureDef my_fixture2;
+	my_fixture2.shape = &my_quad2;
+	quad2body->CreateFixture(&my_fixture2);
+
+	//b2RevoluteJointDef revoluteJointDef2;
+	//revoluteJointDef2.bodyA = sawBody3;
+	//revoluteJointDef2.bodyB = quad2body;
+	//revoluteJointDef2.localAnchorA.Set(-0.5, 0);
+	//revoluteJointDef2.localAnchorB.Set(0, 0);
+	//revoluteJointDef2.enableLimit = true;
+	//revoluteJointDef2.upperAngle = 25 * DEGTORAD;
+	//revoluteJointDef2.lowerAngle = -25 * DEGTORAD;
+	//revoluteJointDef2.maxMotorTorque = 10.0;
+	//revoluteJointDef2.motorSpeed = 5.0;
+	//revoluteJointDef2.enableMotor = true;
+	//world->CreateJoint(&revoluteJointDef2);
+
+	b2PrismaticJointDef prismaticJointDef;
+	prismaticJointDef.bodyA = quad2body;
+	prismaticJointDef.bodyB = sawBody3;
+	prismaticJointDef.collideConnected = false;
+	prismaticJointDef.localAxisA.Set(0, 0);
+	prismaticJointDef.localAxisA.Normalize();
+	prismaticJointDef.localAnchorA.Set(0, 0);
+	prismaticJointDef.localAnchorB.Set(0, 0);
+	prismaticJointDef.enableLimit = true;
+	prismaticJointDef.lowerTranslation = 1;
+	prismaticJointDef.upperTranslation = 0.5;
+	prismaticJointDef.referenceAngle = 0 * DEGTORAD;
+	prismaticJointDef.enableMotor = true;
+	prismaticJointDef.maxMotorForce = 500;//this is a powerful machine after all...
+	prismaticJointDef.motorSpeed = 5;//5 units per second in positive axis direction
+	world->CreateJoint(&prismaticJointDef);
+
+	return sawBody3;
+}
+
+
 PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int height)
 {
 	b2BodyDef body;
