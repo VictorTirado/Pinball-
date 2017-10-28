@@ -15,4 +15,7 @@ public:
 
 public:
 
+	int life;
+	int score;
+
 };

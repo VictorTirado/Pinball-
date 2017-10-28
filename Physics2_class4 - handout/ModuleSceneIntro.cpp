@@ -7,6 +7,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "Animation.h"
+#include "ModulePlayer.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -25,6 +26,13 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	arrow2.PushBack({ 45,427,80,107 });
 	arrow2.PushBack({ 138,427,80,107 });
 	arrow2.loop = 0.4f;
+
+	star.PushBack({386,261,38,34});
+	
+	//star.PushBack({ 350,169,48,49 });
+	star.loop = 0.4f;
+
+	star2.PushBack({ 369,219,42,40 });
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -42,15 +50,13 @@ bool ModuleSceneIntro::Start()
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	bg = App->textures->Load("pinball/background.png");
 	lights = App->textures->Load("pinball/sprites.png");
+	stars = App->textures->Load("pinball/sprites.png");
 	rect_bg.h = SCREEN_HEIGHT;
 	rect_bg.w = SCREEN_WIDTH;
 	rect_bg.x = 0;
 	rect_bg.y = 0;
 
-	//arrows.h = 87;
-	//arrows.w = 105;
-	//arrows.x = 66;
-	//arrows.y = 294;
+	
 
 	int background[84] = {
 		165, 811,
@@ -386,7 +392,7 @@ bool ModuleSceneIntro::Start()
 
 	App->physics->createSpring();
 
-
+	
 
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
@@ -407,9 +413,19 @@ update_status ModuleSceneIntro::Update()
 {
 	current_animation = &arrow;
 	current_animation2 = &arrow2;
+	current_animation3 = &star;
+	current_animation4 = &star2;
+	current_animation5 = &star;
+	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	App->renderer->Blit(lights, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
 	App->renderer->Blit(lights, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
+	
+	App->renderer->Blit(stars, 175, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
+	App->renderer->Blit(stars, 266, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
+	
+	App->renderer->Blit(stars, 157, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
+	App->renderer->Blit(stars, 276, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		ray_on = !ray_on;

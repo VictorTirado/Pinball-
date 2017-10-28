@@ -14,6 +14,9 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 	return true;
+
+	score = 0;
+	life = 3;	
 }
 
 // Unload assets
