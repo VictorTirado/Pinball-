@@ -27,7 +27,9 @@ public:
 	bool sensed;
 
 	Animation* current_animation = nullptr;
+	Animation* current_animation2 = nullptr;
 	Animation arrow;
+	Animation arrow2;
 
 	Animation idle;
 	SDL_Texture* box;

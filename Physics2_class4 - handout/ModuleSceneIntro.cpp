@@ -13,6 +13,18 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	
 	ray_on = false;
 	sensed = false;
+
+	arrow.PushBack({ 49,44,83,106 });
+	arrow.PushBack({ 182,44,83,106 });
+	arrow.PushBack({ 49,159,83,106 });
+	arrow.PushBack({ 198,160,83,106 });
+	arrow.loop = 0.4f;
+
+	arrow2.PushBack({ 45,306,80,107 });
+	arrow2.PushBack({ 147,306,80,107 });
+	arrow2.PushBack({ 45,427,80,107 });
+	arrow2.PushBack({ 138,427,80,107 });
+	arrow2.loop = 0.4f;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -35,15 +47,11 @@ bool ModuleSceneIntro::Start()
 	rect_bg.x = 0;
 	rect_bg.y = 0;
 
-	arrows.h = 87;
-	arrows.w = 105;
-	arrows.x = 66;
-	arrows.y = 294;
+	//arrows.h = 87;
+	//arrows.w = 105;
+	//arrows.x = 66;
+	//arrows.y = 294;
 
-	
-	arrow.PushBack({69,311,70,70});
-	
-	
 	int background[84] = {
 		165, 811,
 		173, 818,
@@ -287,27 +295,33 @@ bool ModuleSceneIntro::Start()
 	bg = App->physics->CreateChain(0, 0, background, 84);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetRestitution(0.1f);
 
 
 	bg = App->physics->CreateChain(0, 0, background1, 24);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetRestitution(0.1f);
 
 	bg = App->physics->CreateChain(0, 0, background2, 26);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetRestitution(0.1f);
 
 	bg = App->physics->CreateChain(0, 0, background3, 62);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetRestitution(0.1f);
 
 	bg = App->physics->CreateChain(0, 0, background4, 30);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetRestitution(0.1f);
 
 	bg = App->physics->CreateChain(0, 0, background5, 30);
 	bg->body->SetType(b2_staticBody);
 	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bg->body->GetFixtureList()->SetRestitution(0.1f);
 
 	//Circle
 	bg = App->physics->CreateCircle(167, 320, 33);
@@ -388,9 +402,10 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	current_animation = &arrow;
-	App->renderer->Blit(lights,0, 0, &(current_animation->GetCurrentFrame()), 1.0f);
-	//App->renderer->Blit(ball, x, y, NULL, 1.0f, c->data->GetRotation());
+	current_animation2 = &arrow2;
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
+	App->renderer->Blit(lights, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
+	App->renderer->Blit(lights, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		ray_on = !ray_on;

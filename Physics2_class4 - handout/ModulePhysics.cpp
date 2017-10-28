@@ -119,7 +119,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
 b2Body* ModulePhysics::createFlipperR() {
 	b2BodyDef sawDef;
 	sawDef.type = b2_dynamicBody;
-	sawDef.position.Set(PIXEL_TO_METERS(290), PIXEL_TO_METERS(755));
+	sawDef.position.Set(PIXEL_TO_METERS(285), PIXEL_TO_METERS(750));
 
 	sawBody = world->CreateBody(&sawDef);
 
@@ -132,7 +132,7 @@ b2Body* ModulePhysics::createFlipperR() {
 	sawBody->CreateFixture(&sawFixture);
 
 	b2BodyDef circleBodyDef;
-	circleBodyDef.position.Set(PIXEL_TO_METERS(310), PIXEL_TO_METERS(755));
+	circleBodyDef.position.Set(PIXEL_TO_METERS(305), PIXEL_TO_METERS(750));
 	circleBodyDef.type = b2_staticBody;
 
 	b2Body* circle_body = world->CreateBody(&circleBodyDef);
