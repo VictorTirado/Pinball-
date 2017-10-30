@@ -12,11 +12,13 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
+
+	score = 0;
+	life = 3;
 	LOG("Loading player");
 	return true;
 
-	score = 0;
-	life = 3;	
+	
 }
 
 // Unload assets
@@ -27,11 +29,20 @@ bool ModulePlayer::CleanUp()
 	return true;
 }
 
+int ModulePlayer::GetLifes()
+{
+	return life;
+}
+void ModulePlayer::LoseLife() {
+	life--;
+}
 // Update: draw background
 update_status ModulePlayer::Update()
 {
 	return UPDATE_CONTINUE;
 }
+
+
 
 
 

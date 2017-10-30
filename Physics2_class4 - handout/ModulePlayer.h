@@ -12,6 +12,9 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	
+	int GetLifes();
+	void LoseLife();
 
 public:
 

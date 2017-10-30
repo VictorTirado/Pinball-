@@ -31,11 +31,13 @@ public:
 	Animation* current_animation3 = nullptr;
 	Animation* current_animation4 = nullptr;
 	Animation* current_animation5 = nullptr;
+	Animation* current_animation6 = nullptr;
 
 	Animation arrow;
 	Animation arrow2;
 	Animation star;
 	Animation star2;
+	Animation l;
 
 	Animation idle;
 	SDL_Texture* box;
@@ -44,6 +46,7 @@ public:
 	SDL_Texture* ball;
 	SDL_Texture* rod;
 	SDL_Texture* stars;
+	SDL_Texture* lifes;
 
 	SDL_Rect arrows;
 	SDL_Rect rect_bg;

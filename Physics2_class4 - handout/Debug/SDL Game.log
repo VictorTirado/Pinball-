@@ -1,13 +1,13 @@
 ﻿  ModuleSceneIntro.cpp
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(22): warning C4305: '=': truncamiento de 'float' a 'bool'
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(28): warning C4305: '=': truncamiento de 'float' a 'bool'
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(33): warning C4305: '=': truncamiento de 'float' a 'bool'
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(514): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(516): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(518): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(521): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(529): warning C4101: 'y': variable local sin referencia
-c:\users\usuario\desktop\pinballfisica2\pinball-\physics2_class4 - handout\modulesceneintro.cpp(529): warning C4101: 'x': variable local sin referencia
-e:\visualstudio\vc\include\limits(210): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
-  SDL Game.vcxproj -> C:\Users\USUARIO\Desktop\PinballFisica2\Pinball-\Physics2_class4 - handout\Debug\2D Physics - class 4.exe
-  SDL Game.vcxproj -> C:\Users\USUARIO\Desktop\PinballFisica2\Pinball-\Physics2_class4 - handout\Debug\2D Physics - class 4.pdb (Full PDB)
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(22): warning C4305: '=': truncamiento de 'float' a 'bool'
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(28): warning C4305: '=': truncamiento de 'float' a 'bool'
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(32): warning C4305: '=': truncamiento de 'float' a 'bool'
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(535): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(537): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(539): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(542): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(550): warning C4101: 'y': variable local sin referencia
+c:\users\usuario\documents\github\pinball-\physics2_class4 - handout\modulesceneintro.cpp(550): warning C4101: 'x': variable local sin referencia
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\limits(210): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Pinball-\Physics2_class4 - handout\Debug\2D Physics - class 4.exe
+  SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Pinball-\Physics2_class4 - handout\Debug\2D Physics - class 4.pdb (Full PDB)

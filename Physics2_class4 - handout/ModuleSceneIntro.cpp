@@ -28,11 +28,12 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	arrow2.loop = 0.4f;
 
 	star.PushBack({386,261,38,34});
-	
 	//star.PushBack({ 350,169,48,49 });
 	star.loop = 0.4f;
 
 	star2.PushBack({ 369,219,42,40 });
+
+	l.PushBack({ 870,420,22,22 });
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -52,6 +53,7 @@ bool ModuleSceneIntro::Start()
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	bg = App->textures->Load("pinball/background.png");
 	lights = App->textures->Load("pinball/sprites.png");
+	lifes = App->textures->Load("pinball/sprites.png");
 	stars = App->textures->Load("pinball/sprites.png");
 	rect_bg.h = SCREEN_HEIGHT;
 	rect_bg.w = SCREEN_WIDTH;
@@ -418,7 +420,9 @@ update_status ModuleSceneIntro::Update()
 	current_animation3 = &star;
 	current_animation4 = &star2;
 	current_animation5 = &star;
+	current_animation6 = &l;
 	
+
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	App->renderer->Blit(lights, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
 	App->renderer->Blit(lights, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
@@ -428,6 +432,23 @@ update_status ModuleSceneIntro::Update()
 	
 	App->renderer->Blit(stars, 157, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
 	App->renderer->Blit(stars, 276, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
+		//LIFESG
+		if (App->player->GetLifes() == 3) {
+			App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+			App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+			App->renderer->Blit(lifes, 92, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		}
+
+		if (App->player->GetLifes() == 2) {
+			App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+			App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		}
+
+		if (App->player->GetLifes() == 1) {
+			App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		}
+
+	
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		ray_on = !ray_on;
@@ -528,6 +549,8 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
 
+	/*if(bodyA == )
+	App->player->LoseLife();*/
 
 	App->audio->PlayFx(bonus_fx);
 	
