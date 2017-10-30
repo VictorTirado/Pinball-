@@ -44,6 +44,8 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
+	App->audio->PlayMusic("music/ZooPinballMusic.ogg");
+
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	ball = App->textures->Load("pinball/ball.png");
