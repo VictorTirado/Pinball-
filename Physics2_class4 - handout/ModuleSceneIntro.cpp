@@ -11,7 +11,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	
+
 	ray_on = false;
 	sensed = false;
 
@@ -27,7 +27,7 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	arrow2.PushBack({ 138,427,80,107 });
 	arrow2.loop = 0.4f;
 
-	star.PushBack({386,261,38,34});
+	star.PushBack({ 386,261,38,34 });
 	//star.PushBack({ 350,169,48,49 });
 	star.loop = 0.4f;
 
@@ -60,7 +60,7 @@ bool ModuleSceneIntro::Start()
 	rect_bg.x = 0;
 	rect_bg.y = 0;
 
-	
+
 
 	int background[84] = {
 		165, 811,
@@ -187,7 +187,7 @@ bool ModuleSceneIntro::Start()
 		135, 749,
 		127, 751
 	};
-	
+
 	int background5[30] = {
 		398, 610,
 		398, 556,
@@ -299,7 +299,6 @@ bool ModuleSceneIntro::Start()
 	};
 
 
-
 	//Background
 	PhysBody* bg;
 	bg = App->physics->CreateChain(0, 0, background, 84);
@@ -396,10 +395,10 @@ bool ModuleSceneIntro::Start()
 
 	App->physics->createSpring();
 
-	
 
 
-	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
+
+	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, SCREEN_WIDTH, 50);
 
 	return ret;
 }
@@ -421,35 +420,35 @@ update_status ModuleSceneIntro::Update()
 	current_animation4 = &star2;
 	current_animation5 = &star;
 	current_animation6 = &l;
-	
+
 
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	App->renderer->Blit(lights, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
 	App->renderer->Blit(lights, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
-	
+
 	App->renderer->Blit(stars, 175, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
 	App->renderer->Blit(stars, 266, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
-	
+
 	App->renderer->Blit(stars, 157, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
 	App->renderer->Blit(stars, 276, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
-		//LIFESG
-		if (App->player->GetLifes() == 3) {
-			App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-			App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-			App->renderer->Blit(lifes, 92, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-		}
+	//LIFESG
+	if (App->player->GetLifes() == 3) {
+		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(lifes, 92, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+	}
 
-		if (App->player->GetLifes() == 2) {
-			App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-			App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-		}
+	if (App->player->GetLifes() == 2) {
+		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+	}
 
-		if (App->player->GetLifes() == 1) {
-			App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-		}
+	if (App->player->GetLifes() == 1) {
+		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+	}
 
-	
-	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		//ray_on = !ray_on;
 		//ray.x = App->input->GetMouseX();
@@ -462,7 +461,7 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 13));
 		circles.getLast()->data->listener = this;
@@ -488,9 +487,20 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
+	if (App->player->life == 2 && cont == 1) {
+		circles.add(App->physics->CreateCircle(456, 709, 13));
+		circles.getLast()->data->listener = this;
+		cont++;
+	}
+	if (App->player->life == 1 && cont == 1) {
+		circles.add(App->physics->CreateCircle(456, 709, 13));
+		circles.getLast()->data->listener = this;
+		cont++;
+	}
+
 
 	// Prepare for raycast ------------------------------------------------------
-	
+
 	iPoint mouse;
 	mouse.x = App->input->GetMouseX();
 	mouse.y = App->input->GetMouseY();
@@ -501,7 +511,7 @@ update_status ModuleSceneIntro::Update()
 	// All draw functions ------------------------------------------------------
 	p2List_item<PhysBody*>* c = circles.getFirst();
 
-	while(c != NULL)
+	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
@@ -511,15 +521,15 @@ update_status ModuleSceneIntro::Update()
 
 	c = boxes.getFirst();
 
-	while(c != NULL)
+	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
 		App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-		if(ray_on)
+		if (ray_on)
 		{
 			int hit = c->data->RayCast(ray.x, ray.y, mouse.x, mouse.y, normal.x, normal.y);
-			if(hit >= 0)
+			if (hit >= 0)
 				ray_hit = hit;
 		}
 		c = c->next;
@@ -527,7 +537,7 @@ update_status ModuleSceneIntro::Update()
 
 	c = rods.getFirst();
 
-	while(c != NULL)
+	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
@@ -536,15 +546,15 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	// ray -----------------
-	if(ray_on == true)
+	if (ray_on == true)
 	{
-		fVector destination(mouse.x-ray.x, mouse.y-ray.y);
+		fVector destination(mouse.x - ray.x, mouse.y - ray.y);
 		destination.Normalize();
 		destination *= ray_hit;
 
 		App->renderer->DrawLine(ray.x, ray.y, ray.x + destination.x, ray.y + destination.y, 255, 255, 255);
 
-		if(normal.x != 0.0f)
+		if (normal.x != 0.0f)
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
 
@@ -554,24 +564,18 @@ update_status ModuleSceneIntro::Update()
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
+	int x1, y1;
+	if (bodyA != NULL && bodyB != NULL) {
+		if (bodyB == sensor) {
+			App->player->LoseLife();
+			cont = 1;
+		}
 
-	/*if(bodyA == )
-	App->player->LoseLife();*/
 
-	App->audio->PlayFx(bonus_fx);
-	
+		App->audio->PlayFx(bonus_fx);
+	}
 
 
-	
-	//if(bodyA)
-	//{
-	//	bodyA->GetPosition(x, y);
-	//	App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	//}
 
-	//if(bodyB)
-	//{
-	//	bodyB->GetPosition(x, y);
-	//	App->renderer->DrawCircle(x, y, 50, 100, 100, 100);
-	//}
+
 }

@@ -25,7 +25,7 @@ public:
 
 	PhysBody* sensor;
 	bool sensed;
-
+	int cont = 0;
 	Animation* current_animation = nullptr;
 	Animation* current_animation2 = nullptr;
 	Animation* current_animation3 = nullptr;
