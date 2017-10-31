@@ -32,8 +32,14 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	star.loop = 0.4f;
 
 	star2.PushBack({ 369,219,42,40 });
+	star3.PushBack({ 351,171,46,46 });
 
 	l.PushBack({ 870,420,22,22 });
+
+	gameover.PushBack({500,27,500,255});
+
+	wheel.PushBack({566,337,125,125});
+	wheel2.PushBack({353,383,126,125});
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -54,6 +60,7 @@ bool ModuleSceneIntro::Start()
 	bg = App->textures->Load("pinball/background.png");
 	lights = App->textures->Load("pinball/sprites.png");
 	lifes = App->textures->Load("pinball/sprites.png");
+	GO = App->textures->Load("pinball/sprites.png");
 	stars = App->textures->Load("pinball/sprites.png");
 	rect_bg.h = SCREEN_HEIGHT;
 	rect_bg.w = SCREEN_WIDTH;
@@ -418,48 +425,54 @@ update_status ModuleSceneIntro::Update()
 	current_animation2 = &arrow2;
 	current_animation3 = &star;
 	current_animation4 = &star2;
-	current_animation5 = &star;
+	current_animation5 = &star3;
 	current_animation6 = &l;
+	current_animation7 = &gameover;
+	current_animation8 = &wheel;
+	current_animation9 = &wheel2;
 
 
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
-	App->renderer->Blit(lights, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
-	App->renderer->Blit(lights, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
+	if(App->player->GetLifes() > 0) {
+		App->renderer->Blit(lights, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(lights, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
+	}
+	//POINTS
+	
+	App->renderer->Blit(stars, 171, 405, &(current_animation8->GetCurrentFrame()), 1.0f);
 
 	App->renderer->Blit(stars, 175, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
 	App->renderer->Blit(stars, 266, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
 
 	App->renderer->Blit(stars, 157, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
 	App->renderer->Blit(stars, 276, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
-	//LIFESG
+
+	App->renderer->Blit(stars, 138, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
+	App->renderer->Blit(stars, 289, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
+
+	
+	App->renderer->Blit(stars, 171, 445, &(current_animation9->GetCurrentFrame()), 1.0f);
+
+
+	//LIFES
 	if (App->player->GetLifes() == 3) {
 		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 		App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 		App->renderer->Blit(lifes, 92, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 	}
-
 	if (App->player->GetLifes() == 2) {
 		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 		App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 	}
-
 	if (App->player->GetLifes() == 1) {
 		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 	}
+	if (App->player->GetLifes() <= 0) {
+			App->renderer->Blit(GO, -150, 150, &(current_animation7->GetCurrentFrame()), 1.0f);
+	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		//ray_on = !ray_on;
-		//ray.x = App->input->GetMouseX();
-		//ray.y = App->input->GetMouseY();
-		App->physics->sawBody3->ApplyTorque(250.0, true);
-	}
-	else {
-		if (App->physics->sawBody3->IsAwake()) {
-			App->physics->sawBody3->ApplyTorque(-250.0, false);
-		}
-	}
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
