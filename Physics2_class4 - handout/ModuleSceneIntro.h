@@ -24,6 +24,9 @@ public:
 	p2List<PhysBody*> rods;
 
 	PhysBody* sensor;
+	PhysBody* sensorBall1;
+	PhysBody* sensorBall2;
+	PhysBody* sensorBall3;
 	bool sensed;
 	int cont = 0;
 	Animation* current_animation = nullptr;

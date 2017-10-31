@@ -92,7 +92,7 @@ void ModuleWindow::SetTitle(const char* title)
 
 update_status ModuleWindow::Update()
 {
-	p2SString title("Score:    Lifes: %i", App->player->GetLifes());
+	p2SString title("Score: %i   Lifes: %i", App->player->score, App->player->GetLifes());
 	SetTitle(title.GetString());
 
 	return UPDATE_CONTINUE;

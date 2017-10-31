@@ -406,7 +406,9 @@ bool ModuleSceneIntro::Start()
 
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, SCREEN_WIDTH, 50);
-
+	sensorBall1 = App->physics->CreateCircleSensor(167, 320, 34);
+	sensorBall2 = App->physics->CreateCircleSensor(304, 320, 34);
+	sensorBall3 = App->physics->CreateCircleSensor(230, 403, 34);
 	return ret;
 }
 
@@ -439,20 +441,26 @@ update_status ModuleSceneIntro::Update()
 	}
 	//POINTS
 	
-	App->renderer->Blit(stars, 171, 405, &(current_animation8->GetCurrentFrame()), 1.0f);
+	//App->renderer->Blit(stars, 171, 405, &(current_animation8->GetCurrentFrame()), 1.0f);
 
-	App->renderer->Blit(stars, 175, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
-	App->renderer->Blit(stars, 266, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
+	if(App->player->score>=100){
+		App->renderer->Blit(stars, 175, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(stars, 266, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
+	}
 
-	App->renderer->Blit(stars, 157, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
-	App->renderer->Blit(stars, 276, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
+	if (App->player->score >= 500) {
+		App->renderer->Blit(stars, 157, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(stars, 276, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
+	}
 
-	App->renderer->Blit(stars, 138, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
-	App->renderer->Blit(stars, 289, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
-
+	if (App->player->score >= 1000) {
+		App->renderer->Blit(stars, 138, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(stars, 289, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
+	}
 	
-	App->renderer->Blit(stars, 171, 445, &(current_animation9->GetCurrentFrame()), 1.0f);
-
+	if (App->player->score >= 5000) {
+		App->renderer->Blit(stars, 171, 445, &(current_animation9->GetCurrentFrame()), 1.0f);
+	}
 
 	//LIFES
 	if (App->player->GetLifes() == 3) {
@@ -468,7 +476,11 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 	}
 	if (App->player->GetLifes() <= 0) {
-			App->renderer->Blit(GO, -150, 150, &(current_animation7->GetCurrentFrame()), 1.0f);
+			App->renderer->Blit(GO, 0, SCREEN_HEIGHT/3, &(current_animation7->GetCurrentFrame()), 1.0f);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && App->player->life == 0)
+	{
+		App->player->life = 3;
 	}
 
 
@@ -510,6 +522,7 @@ update_status ModuleSceneIntro::Update()
 		circles.getLast()->data->listener = this;
 		cont++;
 	}
+
 
 
 	// Prepare for raycast ------------------------------------------------------
@@ -583,8 +596,15 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			App->player->LoseLife();
 			cont = 1;
 		}
-
-
+		if (bodyB == sensorBall1) {
+			App->player->score += 10;
+		}
+		if (bodyB == sensorBall2) {
+			App->player->score += 10;
+		}
+		if (bodyB == sensorBall3) {
+			App->player->score += 10;
+		}
 		App->audio->PlayFx(bonus_fx);
 	}
 
