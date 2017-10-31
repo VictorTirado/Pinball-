@@ -451,9 +451,15 @@ update_status ModuleSceneIntro::Update()
 	
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		ray_on = !ray_on;
-		ray.x = App->input->GetMouseX();
-		ray.y = App->input->GetMouseY();
+		//ray_on = !ray_on;
+		//ray.x = App->input->GetMouseX();
+		//ray.y = App->input->GetMouseY();
+		App->physics->sawBody3->ApplyTorque(250.0, true);
+	}
+	else {
+		if (App->physics->sawBody3->IsAwake()) {
+			App->physics->sawBody3->ApplyTorque(-250.0, false);
+		}
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)

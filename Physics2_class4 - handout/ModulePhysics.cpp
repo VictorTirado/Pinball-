@@ -255,8 +255,8 @@ b2Body* ModulePhysics::createSpring() {
 	prismaticJointDef.upperTranslation = 0.5;
 	prismaticJointDef.referenceAngle = 0 * DEGTORAD;
 	prismaticJointDef.enableMotor = true;
-	prismaticJointDef.maxMotorForce = 500;//this is a powerful machine after all...
-	prismaticJointDef.motorSpeed = 5;//5 units per second in positive axis direction
+	prismaticJointDef.maxMotorForce = 500;
+	prismaticJointDef.motorSpeed = 5;
 	world->CreateJoint(&prismaticJointDef);
 
 	return sawBody3;
