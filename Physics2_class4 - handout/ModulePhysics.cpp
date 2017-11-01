@@ -229,34 +229,21 @@ b2Body* ModulePhysics::createSpring() {
 	my_fixture2.shape = &my_quad2;
 	quad2body->CreateFixture(&my_fixture2);
 
-	//b2RevoluteJointDef revoluteJointDef2;
-	//revoluteJointDef2.bodyA = sawBody3;
-	//revoluteJointDef2.bodyB = quad2body;
-	//revoluteJointDef2.localAnchorA.Set(-0.5, 0);
-	//revoluteJointDef2.localAnchorB.Set(0, 0);
-	//revoluteJointDef2.enableLimit = true;
-	//revoluteJointDef2.upperAngle = 25 * DEGTORAD;
-	//revoluteJointDef2.lowerAngle = -25 * DEGTORAD;
-	//revoluteJointDef2.maxMotorTorque = 10.0;
-	//revoluteJointDef2.motorSpeed = 5.0;
-	//revoluteJointDef2.enableMotor = true;
-	//world->CreateJoint(&revoluteJointDef2);
-
 	b2PrismaticJointDef prismaticJointDef;
 	prismaticJointDef.bodyA = quad2body;
 	prismaticJointDef.bodyB = sawBody3;
 	prismaticJointDef.collideConnected = false;
-	prismaticJointDef.localAxisA.Set(0, 0);
+	prismaticJointDef.localAxisA.Set(0, 1);
 	prismaticJointDef.localAxisA.Normalize();
 	prismaticJointDef.localAnchorA.Set(0, 0);
 	prismaticJointDef.localAnchorB.Set(0, 0);
 	prismaticJointDef.enableLimit = true;
-	prismaticJointDef.lowerTranslation = 1;
-	prismaticJointDef.upperTranslation = 0.5;
+	prismaticJointDef.lowerTranslation = -1.0;
+	prismaticJointDef.upperTranslation = 1.0;
 	prismaticJointDef.referenceAngle = 0 * DEGTORAD;
 	prismaticJointDef.enableMotor = true;
-	prismaticJointDef.maxMotorForce = 500;
-	prismaticJointDef.motorSpeed = 5;
+	prismaticJointDef.maxMotorForce = 200;
+	prismaticJointDef.motorSpeed = -200;
 	world->CreateJoint(&prismaticJointDef);
 
 	return sawBody3;

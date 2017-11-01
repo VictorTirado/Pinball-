@@ -20,5 +20,6 @@ public:
 
 	int life;
 	int score;
+	int highscore;
 
 };

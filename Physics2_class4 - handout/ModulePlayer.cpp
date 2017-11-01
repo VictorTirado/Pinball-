@@ -15,6 +15,7 @@ bool ModulePlayer::Start()
 
 	score = 0;
 	life = 3;
+	highscore = 0;
 	LOG("Loading player");
 	return true;
 

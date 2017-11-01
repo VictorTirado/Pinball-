@@ -478,14 +478,8 @@ update_status ModuleSceneIntro::Update()
 	if (App->player->GetLifes() <= 0) {
 			App->renderer->Blit(GO, 0, SCREEN_HEIGHT/3, &(current_animation7->GetCurrentFrame()), 1.0f);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && App->player->life == 0)
-	{
-		App->player->life = 3;
-	}
 
-
-	
-
+	//Inputs
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 13));
@@ -512,15 +506,29 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
-	if (App->player->life == 2 && cont == 1) {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	{
+		App->physics->sawBody3->ApplyForce(b2Vec2(0, 250), App->physics->sawBody3->GetLocalCenter(),true);
+	}
+
+	//Respawn Ball
+	if (App->player->GetLifes() == 2 && cont == 1) {
 		circles.add(App->physics->CreateCircle(456, 709, 13));
 		circles.getLast()->data->listener = this;
 		cont++;
 	}
-	if (App->player->life == 1 && cont == 1) {
+	if (App->player->GetLifes() == 1 && cont == 1) {
 		circles.add(App->physics->CreateCircle(456, 709, 13));
 		circles.getLast()->data->listener = this;
 		cont++;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && App->player->life <= 0)
+	{
+		if (App->player->score > App->player->highscore) {
+			App->player->highscore = App->player->score;
+		}
+		App->player->score = 0;
+		App->player->life = 3;
 	}
 
 
