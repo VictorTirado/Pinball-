@@ -409,6 +409,7 @@ bool ModuleSceneIntro::Start()
 	sensorBall1 = App->physics->CreateCircleSensor(167, 320, 34);
 	sensorBall2 = App->physics->CreateCircleSensor(304, 320, 34);
 	sensorBall3 = App->physics->CreateCircleSensor(230, 403, 34);
+
 	return ret;
 }
 
@@ -506,11 +507,11 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
-		App->physics->sawBody3->ApplyForce(b2Vec2(0, -250), App->physics->sawBody3->GetLocalCenter(),true);
+		App->physics->sawBody3->ApplyForce(b2Vec2(0, 250), App->physics->sawBody3->GetLocalCenter(),true);
 	}
 	else {
 		if (App->physics->sawBody3->IsAwake()) {
-			App->physics->sawBody3->ApplyForce(b2Vec2(0, 250), App->physics->sawBody3->GetLocalCenter(), true);
+			App->physics->sawBody3->ApplyForce(b2Vec2(0, -250), App->physics->sawBody3->GetLocalCenter(), true);
 		}
 	}
 
@@ -532,6 +533,8 @@ update_status ModuleSceneIntro::Update()
 		}
 		App->player->score = 0;
 		App->player->life = 3;
+		circles.add(App->physics->CreateCircle(456, 709, 13));
+		circles.getLast()->data->listener = this;
 	}
 
 
