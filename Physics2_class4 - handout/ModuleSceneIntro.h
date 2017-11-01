@@ -47,6 +47,8 @@ public:
 	Animation* current_animation9 = nullptr;
 	Animation* current_animation10 = nullptr;
 	Animation* current_animation11 = nullptr;
+	Animation* current_animation12 = nullptr;
+	Animation* current_animation13 = nullptr;
 
 	Animation arrow;
 	Animation arrow2;
@@ -59,6 +61,8 @@ public:
 	Animation wheel2;
 	Animation flipperL;
 	Animation flipperR;
+	Animation spring;
+	Animation ballLight;
 
 	Animation idle;
 	SDL_Texture* box;
@@ -73,4 +77,7 @@ public:
 	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;
+	bool ballHit1 = false;
+	bool ballHit2 = false;
+	bool ballHit3 = false;
 };

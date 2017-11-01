@@ -41,6 +41,10 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 
 
 	flipperR.PushBack({163,683,83,27});
+
+	spring.PushBack({ 806,419,29,48 });
+
+	ballLight.PushBack({ 348,95,62,62 });
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -489,11 +493,28 @@ update_status ModuleSceneIntro::Update()
 	current_animation9 = &wheel2;
 	current_animation10 = &flipperL;
 	current_animation11 = &flipperR;
+	current_animation12 = &spring;
+	current_animation13 = &ballLight;
 
 	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle(),-0.5f);
 	App->renderer->Blit(animations, 245, 740, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle(),0.5f);
+	App->renderer->Blit(animations, METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().x-15), METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().y - 10), &(current_animation12->GetCurrentFrame()), 1.0f);
+	
+	if (ballHit1 == true) {
+		App->renderer->Blit(animations, 167, 320, &(current_animation13->GetCurrentFrame()), 1.0f);
+		ballHit1 = false;
+	}
+	if (ballHit2 == true) {
+		App->renderer->Blit(animations, 304, 320, &(current_animation13->GetCurrentFrame()), 1.0f);
+		ballHit2 = false;
+	}
+	if (ballHit3 == true) {
+		App->renderer->Blit(animations, 230, 403, &(current_animation13->GetCurrentFrame()), 1.0f);
+		ballHit3 = false;
+	}
+	
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
@@ -674,13 +695,16 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			cont = 1;
 		}
 		if (bodyB == sensorBall1) {
-			App->player->score += 10;
+			App->player->score += 20;
+			ballHit1 = true;
 		}
 		if (bodyB == sensorBall2) {
-			App->player->score += 10;
+			App->player->score += 20;
+			ballHit2 = true;
 		}
 		if (bodyB == sensorBall3) {
-			App->player->score += 10;
+			App->player->score += 20;
+			ballHit3 = true;
 		}
 		if (bodyB == sensorAnimals || bodyB==sensorAnimals1 || bodyB == sensorAnimals2)
 		{
