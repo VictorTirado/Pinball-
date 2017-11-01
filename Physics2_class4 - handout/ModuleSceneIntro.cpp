@@ -440,8 +440,6 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(lights, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
 	}
 	//POINTS
-	
-	//App->renderer->Blit(stars, 171, 405, &(current_animation8->GetCurrentFrame()), 1.0f);
 
 	if(App->player->score>=100){
 		App->renderer->Blit(stars, 175, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
@@ -508,7 +506,12 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
-		App->physics->sawBody3->ApplyForce(b2Vec2(0, 250), App->physics->sawBody3->GetLocalCenter(),true);
+		App->physics->sawBody3->ApplyForce(b2Vec2(0, -250), App->physics->sawBody3->GetLocalCenter(),true);
+	}
+	else {
+		if (App->physics->sawBody3->IsAwake()) {
+			App->physics->sawBody3->ApplyForce(b2Vec2(0, 250), App->physics->sawBody3->GetLocalCenter(), true);
+		}
 	}
 
 	//Respawn Ball

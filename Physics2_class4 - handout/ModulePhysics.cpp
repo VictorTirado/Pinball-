@@ -205,7 +205,7 @@ b2Body* ModulePhysics::createFlipperL() {
 b2Body* ModulePhysics::createSpring() {
 	b2BodyDef sawDef3;
 	sawDef3.type = b2_dynamicBody;
-	sawDef3.position.Set(PIXEL_TO_METERS(465), PIXEL_TO_METERS(750));
+	sawDef3.position.Set(PIXEL_TO_METERS(465), PIXEL_TO_METERS(SCREEN_HEIGHT));
 
 	sawBody3 = world->CreateBody(&sawDef3);
 
@@ -218,7 +218,7 @@ b2Body* ModulePhysics::createSpring() {
 	sawBody3->CreateFixture(&sawFixture3);
 
 	b2BodyDef quad2;
-	quad2.position.Set(PIXEL_TO_METERS(465), PIXEL_TO_METERS(750));
+	quad2.position.Set(PIXEL_TO_METERS(465), PIXEL_TO_METERS(SCREEN_HEIGHT));
 	quad2.type = b2_staticBody;
 
 	b2Body* quad2body = world->CreateBody(&quad2);
