@@ -492,8 +492,8 @@ update_status ModuleSceneIntro::Update()
 
 	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
-	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
-	App->renderer->Blit(animations, 255, 735, &(current_animation11->GetCurrentFrame()), 1.0f);
+	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle(),-0.5f);
+	App->renderer->Blit(animations, 255, 735, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle(),0.5f);
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
