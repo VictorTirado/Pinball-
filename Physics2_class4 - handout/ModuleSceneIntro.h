@@ -46,6 +46,7 @@ public:
 	Animation* current_animation8 = nullptr;
 	Animation* current_animation9 = nullptr;
 	Animation* current_animation10 = nullptr;
+	Animation* current_animation11 = nullptr;
 
 	Animation arrow;
 	Animation arrow2;
@@ -56,7 +57,8 @@ public:
 	Animation gameover;
 	Animation wheel;
 	Animation wheel2;
-	Animation flipper;
+	Animation flipperL;
+	Animation flipperR;
 
 	Animation idle;
 	SDL_Texture* box;

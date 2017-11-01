@@ -37,7 +37,10 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	wheel.PushBack({566,337,125,125});
 	wheel2.PushBack({353,383,126,125});
 
-	flipper.PushBack({ 32,582,76,50 });
+	flipperL.PushBack({ 32,582,76,50 });
+
+
+	flipperR.PushBack({152,581,75,50});
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -484,11 +487,13 @@ update_status ModuleSceneIntro::Update()
 	current_animation7 = &gameover;
 	current_animation8 = &wheel;
 	current_animation9 = &wheel2;
-	current_animation10 = &flipper;
+	current_animation10 = &flipperL;
+	current_animation11 = &flipperR;
 
 	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
+	App->renderer->Blit(animations, 255, 735, &(current_animation11->GetCurrentFrame()), 1.0f);
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
