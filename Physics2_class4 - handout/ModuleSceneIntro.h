@@ -27,6 +27,13 @@ public:
 	PhysBody* sensorBall1;
 	PhysBody* sensorBall2;
 	PhysBody* sensorBall3;
+	PhysBody* rebounds;
+	PhysBody* animals;
+	PhysBody* sensorAnimals;
+	PhysBody* sensorAnimals1;
+	PhysBody* sensorAnimals2;
+	
+
 	bool sensed;
 	int cont = 0;
 	Animation* current_animation = nullptr;
@@ -38,6 +45,7 @@ public:
 	Animation* current_animation7 = nullptr;
 	Animation* current_animation8 = nullptr;
 	Animation* current_animation9 = nullptr;
+	Animation* current_animation10 = nullptr;
 
 	Animation arrow;
 	Animation arrow2;
@@ -48,17 +56,15 @@ public:
 	Animation gameover;
 	Animation wheel;
 	Animation wheel2;
+	Animation flipper;
 
 	Animation idle;
 	SDL_Texture* box;
-	SDL_Texture* bg;
-	SDL_Texture* lights;
 	SDL_Texture* ball;
-	SDL_Texture* rod;
-	SDL_Texture* stars;
-	SDL_Texture* lifes;
-	SDL_Texture* GO;
+	SDL_Texture* bg;
 
+	
+	SDL_Texture* animations;
 	SDL_Rect arrows;
 	SDL_Rect rect_bg;
 	

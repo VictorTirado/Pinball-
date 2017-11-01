@@ -122,10 +122,10 @@ b2Body* ModulePhysics::createFlipperR() {
 	sawDef.position.Set(PIXEL_TO_METERS(285), PIXEL_TO_METERS(750));
 
 	sawBody = world->CreateBody(&sawDef);
-
+	
 	b2PolygonShape box;
 	box.SetAsBox(PIXEL_TO_METERS(75) * 0.5f, PIXEL_TO_METERS(20) * 0.5f);
-
+	
 	b2FixtureDef sawFixture;
 	sawFixture.shape = &box;
 	sawFixture.density = 2;

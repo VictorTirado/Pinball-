@@ -28,18 +28,16 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	arrow2.loop = 0.4f;
 
 	star.PushBack({ 386,261,38,34 });
-	//star.PushBack({ 350,169,48,49 });
-	star.loop = 0.4f;
-
 	star2.PushBack({ 369,219,42,40 });
 	star3.PushBack({ 351,171,46,46 });
 
 	l.PushBack({ 870,420,22,22 });
-
 	gameover.PushBack({500,27,500,255});
-
+	
 	wheel.PushBack({566,337,125,125});
 	wheel2.PushBack({353,383,126,125});
+
+	flipper.PushBack({ 32,582,76,50 });
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -58,10 +56,7 @@ bool ModuleSceneIntro::Start()
 	ball = App->textures->Load("pinball/ball.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	bg = App->textures->Load("pinball/background.png");
-	lights = App->textures->Load("pinball/sprites.png");
-	lifes = App->textures->Load("pinball/sprites.png");
-	GO = App->textures->Load("pinball/sprites.png");
-	stars = App->textures->Load("pinball/sprites.png");
+	animations = App->textures->Load("Pinball/sprites.png");
 	rect_bg.h = SCREEN_HEIGHT;
 	rect_bg.w = SCREEN_WIDTH;
 	rect_bg.x = 0;
@@ -304,6 +299,44 @@ bool ModuleSceneIntro::Start()
 		340, 594,
 		318, 660
 	};
+	//Animals 
+	int animal[34] = {
+		39, 241,
+		54, 239,
+		62, 231,
+		70, 227,
+		81, 221,
+		81, 210,
+		72, 203,
+		62, 197,
+		60, 184,
+		46, 175,
+		27, 181,
+		20, 193,
+		21, 206,
+		31, 209,
+		33, 219,
+		31, 228,
+		33, 236
+	};
+	int animal1[30] = {
+		438, 243,
+		431, 245,
+		424, 253,
+		418, 256,
+		405, 250,
+		392, 243,
+		390, 235,
+		395, 228,
+		389, 218,
+		388, 208,
+		395, 199,
+		397, 194,
+		398, 187,
+		431, 219,
+		438, 232
+	};
+
 
 
 	//Background
@@ -379,7 +412,7 @@ bool ModuleSceneIntro::Start()
 	bg->body->GetFixtureList()->SetDensity(0.1f);
 
 	//Rebounds(Blue)
-	PhysBody* rebounds;
+	
 	rebounds = App->physics->CreateChain(0, 0, rebound, 10);
 	rebounds->body->SetType(b2_staticBody);
 	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
@@ -395,6 +428,24 @@ bool ModuleSceneIntro::Start()
 	rebounds = App->physics->CreateChain(0, 0, rebound3, 10);
 	rebounds->body->SetType(b2_staticBody);
 	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
+
+	//Animals
+	
+	animals = App->physics->CreateChain(0, 0, animal, 34);
+	animals->body->SetType(b2_staticBody);
+	animals->body->GetFixtureList()->SetDensity(0.1f);
+	animals->body->GetFixtureList()->SetRestitution(0.1f);
+	animals = App->physics->CreateChain(0, 0, animal1, 30);
+	animals->body->SetType(b2_staticBody);
+	animals->body->GetFixtureList()->SetDensity(0.1f);
+	animals->body->GetFixtureList()->SetRestitution(0.1f);
+
+	sensorAnimals = App->physics->CreateCircleSensor(60, 231, 15);
+	sensorAnimals1 = App->physics->CreateRectangleSensor(233, 118, 29, 4);
+	sensorAnimals2= App->physics->CreateCircleSensor(405, 246, 15);
+	
+
+
 
 	App->physics->createFlipperR();
 
@@ -433,49 +484,56 @@ update_status ModuleSceneIntro::Update()
 	current_animation7 = &gameover;
 	current_animation8 = &wheel;
 	current_animation9 = &wheel2;
+	current_animation10 = &flipper;
 
-
+	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
+	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
+	}
+
 	if(App->player->GetLifes() > 0) {
-		App->renderer->Blit(lights, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(lights, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 318, 289, &(current_animation2->GetCurrentFrame()), 1.0f);
 	}
 	//POINTS
 
 	if(App->player->score>=100){
-		App->renderer->Blit(stars, 175, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(stars, 266, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 175, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 266, 635, &(current_animation3->GetCurrentFrame()), 1.0f);
 	}
 
 	if (App->player->score >= 500) {
-		App->renderer->Blit(stars, 157, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(stars, 276, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 157, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 276, 593, &(current_animation4->GetCurrentFrame()), 1.0f);
 	}
 
 	if (App->player->score >= 1000) {
-		App->renderer->Blit(stars, 138, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(stars, 289, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 138, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 289, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
 	}
 	
 	if (App->player->score >= 5000) {
-		App->renderer->Blit(stars, 171, 445, &(current_animation9->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 171, 445, &(current_animation9->GetCurrentFrame()), 1.0f);
 	}
 
 	//LIFES
 	if (App->player->GetLifes() == 3) {
-		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(lifes, 92, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 92, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 	}
 	if (App->player->GetLifes() == 2) {
-		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(lifes, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 61, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 	}
 	if (App->player->GetLifes() == 1) {
-		App->renderer->Blit(lifes, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 25, 67, &(current_animation6->GetCurrentFrame()), 1.0f);
 	}
 	if (App->player->GetLifes() <= 0) {
-			App->renderer->Blit(GO, 0, SCREEN_HEIGHT/3, &(current_animation7->GetCurrentFrame()), 1.0f);
+			App->renderer->Blit(animations, 0, SCREEN_HEIGHT/3, &(current_animation7->GetCurrentFrame()), 1.0f);
 	}
 
 	//Inputs
@@ -581,7 +639,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		App->renderer->Blit(rod, x, y, NULL, 1.0f, c->data->GetRotation());
+		App->renderer->Blit(animations, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
@@ -618,6 +676,11 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		}
 		if (bodyB == sensorBall3) {
 			App->player->score += 10;
+		}
+		if (bodyB == sensorAnimals || bodyB==sensorAnimals1 || bodyB == sensorAnimals2)
+		{
+		
+			App->player->score += 1000;
 		}
 		App->audio->PlayFx(bonus_fx);
 	}
