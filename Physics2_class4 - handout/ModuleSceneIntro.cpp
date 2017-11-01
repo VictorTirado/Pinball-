@@ -37,10 +37,10 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	wheel.PushBack({566,337,125,125});
 	wheel2.PushBack({353,383,126,125});
 
-	flipperL.PushBack({ 32,582,76,50 });
+	flipperL.PushBack({ 36,686,84,50 });
 
 
-	flipperR.PushBack({152,581,75,50});
+	flipperR.PushBack({163,683,83,27});
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -493,7 +493,7 @@ update_status ModuleSceneIntro::Update()
 	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle(),-0.5f);
-	App->renderer->Blit(animations, 255, 735, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle(),0.5f);
+	App->renderer->Blit(animations, 245, 740, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle(),0.5f);
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
