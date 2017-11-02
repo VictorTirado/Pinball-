@@ -500,8 +500,8 @@ update_status ModuleSceneIntro::Update()
 	current_animation15 = &greenticket;
 	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
-	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle(),-0.5f);
-	App->renderer->Blit(animations, 245, 740, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle(),0.5f);
+	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle(),-0.5f,0.0f);
+	App->renderer->Blit(animations, 245, 740, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle(),0.5f,0.0f);
 	App->renderer->Blit(animations, METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().x-15), METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().y - 10), &(current_animation12->GetCurrentFrame()), 1.0f);
 	if (App->player->GetLifes() == 3 && cont==0) {
 		cont++;
