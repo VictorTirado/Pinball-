@@ -53,6 +53,7 @@ public:
 
 	bool sensed;
 	int cont = 0;
+	int cont2 = 0;
 	Animation* current_animation = nullptr;
 	Animation* current_animation2 = nullptr;
 	Animation* current_animation3 = nullptr;
@@ -91,6 +92,8 @@ public:
 	SDL_Texture* bg;
 	SDL_Texture* animations;
 
+	int font;
+
 	SDL_Rect arrows;
 	SDL_Rect rect_bg;
 	
@@ -100,4 +103,24 @@ public:
 	bool ballHit1 = false;
 	bool ballHit2 = false;
 	bool ballHit3 = false;
+
+	bool ticket = false;
+	bool BlitTicket = false;
+	bool ticket1 = false;
+	bool BlitTicket1 = false;
+	bool ticket2 = false;
+	bool BlitTicket2 = false;
+	bool ticket3 = false;
+	bool BlitTicket3 = false;
+	bool ticket4 = false;
+	bool BlitTicket4 = false;
+	bool ticket5 = false;
+	bool BlitTicket5 = false;
+	bool ticket6 = false;
+	bool BlitTicket6 = false;
+	bool ticket7 = false;
+	bool BlitTicket7 = false;
+
+	bool animal = false;
+	int tpBall = 0;
 };

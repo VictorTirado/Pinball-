@@ -8,6 +8,8 @@
 #include "ModulePhysics.h"
 #include "Animation.h"
 #include "ModulePlayer.h"
+#include "ModuleFonts.h"
+#include <string.h>
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -37,16 +39,17 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	wheel.PushBack({566,337,125,125});
 	wheel2.PushBack({353,383,126,125});
 
-	flipperL.PushBack({ 36,686,84,50 });
+	flipperL.PushBack({ 61,764,171,27 });
 
 
-	flipperR.PushBack({163,683,83,27});
+	flipperR.PushBack({163,684,166,27});
 
 	spring.PushBack({ 806,419,29,48 });
 
 	ballLight.PushBack({ 348,95,62,62 });
 
 	blueticket.PushBack({ 308,587,51,26 });
+
 	greenticket.PushBack({ 308,536,46,23 });
 
 }
@@ -68,6 +71,8 @@ bool ModuleSceneIntro::Start()
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	bg = App->textures->Load("pinball/background.png");
 	animations = App->textures->Load("pinball/sprites.png");
+	font = App->fonts->Load("pinball/Fonts.png", "0123456789", 1);
+	
 	rect_bg.h = SCREEN_HEIGHT;
 	rect_bg.w = SCREEN_WIDTH;
 	rect_bg.x = 0;
@@ -467,8 +472,6 @@ bool ModuleSceneIntro::Start()
 	sensorticket1 = App->physics->CreateRectangleSensor(175, 135, 51, 26);
 	sensorticket2 = App->physics->CreateRectangleSensor(300, 135, 51, 26);
 
-	
-
 	return ret;
 }
 
@@ -476,13 +479,17 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-
+	App->fonts->UnLoad(font);
 	return true;
 }
 
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	if (tpBall>2) {
+		tpBall = 0;
+	}
+
 	current_animation = &arrow;
 	current_animation2 = &arrow2;
 	current_animation3 = &star;
@@ -500,24 +507,17 @@ update_status ModuleSceneIntro::Update()
 	current_animation15 = &greenticket;
 	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
-	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle(),-0.5f,0.0f);
-	App->renderer->Blit(animations, 245, 740, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle(),0.5f,0.0f);
+	char points[10];
+	sprintf_s(points, 10, "%i", App->player->score);
+	App->fonts->BlitText(196, 15, font, points);
+	App->renderer->Blit(animations,  50, 730, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle());
+	App->renderer->Blit(animations, 245, 730, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle());
 	App->renderer->Blit(animations, METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().x-15), METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().y - 10), &(current_animation12->GetCurrentFrame()), 1.0f);
-	if (App->player->GetLifes() == 3 && cont==0) {
-		cont++;
-		circles.add(App->physics->CreateCircle(456, 709, 13));
-		circles.getLast()->data->listener = this;
-	}
-	if (App->player->GetScore() >= 500)
+	
+	if (App->player->GetScore() >= 500 && cont2 == 0)
 	{
-		App->renderer->Blit(animations, 217, 300, &(current_animation15->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(animations, 217, 330, &(current_animation15->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(animations, 133, 388, &(current_animation15->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(animations, 133, 418, &(current_animation15->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(animations, 280, 388, &(current_animation15->GetCurrentFrame()), 1.0f);
-		App->renderer->Blit(animations, 280, 418, &(current_animation15->GetCurrentFrame()), 1.0f);
+		cont2++;
 
-		
 		sensorticket3 = App->physics->CreateRectangleSensor(240, 312, 51, 26);
 		sensorticket4 = App->physics->CreateRectangleSensor(240, 342, 51, 26);
 		sensorticket5 = App->physics->CreateRectangleSensor(155, 400, 51, 26);
@@ -525,10 +525,55 @@ update_status ModuleSceneIntro::Update()
 		sensorticket7 = App->physics->CreateRectangleSensor(303, 400, 51, 26);
 		sensorticket8 = App->physics->CreateRectangleSensor(303, 430, 51, 26);
 	}
-
 	
-	App->renderer->Blit(animations, 149, 123, &(current_animation14->GetCurrentFrame()), 1.0f);
-	App->renderer->Blit(animations, 275, 123, &(current_animation14->GetCurrentFrame()), 1.0f);
+	//TpBall
+	if (animal == true && tpBall == 0) {
+		App->physics->world->DestroyBody(circles.getLast()->data->body);
+		circles.add(App->physics->CreateCircle(85, 460, 13));
+		circles.getLast()->data->listener = this;
+		animal = false;
+	}
+	if (animal == true && tpBall == 1) {
+		App->physics->world->DestroyBody(circles.getLast()->data->body);
+		circles.add(App->physics->CreateCircle(375, 460, 13));
+		circles.getLast()->data->listener = this;
+		animal = false;
+	}
+	if (animal == true && tpBall == 2) {
+		App->physics->world->DestroyBody(circles.getLast()->data->body);
+		circles.add(App->physics->CreateCircle(225, 118, 13));
+		circles.getLast()->data->listener = this;
+		animal = false;
+	}
+
+	//BLUE TICKETS
+	if (BlitTicket == false) {
+		App->renderer->Blit(animations, 149, 123, &(current_animation14->GetCurrentFrame()), 1.0f);
+	}
+	if (BlitTicket1 == false) {
+		App->renderer->Blit(animations, 275, 123, &(current_animation14->GetCurrentFrame()), 1.0f);
+	}
+	//GREEN TICKETS
+	if (App->player->GetScore() >= 500 && BlitTicket2 == false) {
+		App->renderer->Blit(animations, 217, 300, &(current_animation15->GetCurrentFrame()), 1.0f);
+
+	}
+	if (App->player->GetScore() >= 500 && BlitTicket3 == false) {
+		App->renderer->Blit(animations, 217, 330, &(current_animation15->GetCurrentFrame()), 1.0f);
+	}
+	if (App->player->GetScore() >= 500 && BlitTicket4 == false) {
+		App->renderer->Blit(animations, 133, 388, &(current_animation15->GetCurrentFrame()), 1.0f);
+	}
+	if (App->player->GetScore() >= 500 && BlitTicket5 == false) {
+		App->renderer->Blit(animations, 133, 418, &(current_animation15->GetCurrentFrame()), 1.0f);
+	}
+	if (App->player->GetScore() >= 500 && BlitTicket6 == false) {
+		App->renderer->Blit(animations, 280, 388, &(current_animation15->GetCurrentFrame()), 1.0f);
+	}
+	if (App->player->GetScore() >= 500 && BlitTicket7 == false) {
+		App->renderer->Blit(animations, 280, 418, &(current_animation15->GetCurrentFrame()), 1.0f);
+	}
+
 	if (ballHit1 == true) {
 		App->renderer->Blit(animations, 167, 320, &(current_animation13->GetCurrentFrame()), 1.0f);
 		ballHit1 = false;
@@ -542,10 +587,7 @@ update_status ModuleSceneIntro::Update()
 		ballHit3 = false;
 	}
 	
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-	{
-		App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f);
-	}
+	
 
 	if(App->player->GetLifes() > 0) {
 		App->renderer->Blit(animations, 70, 290, &(current_animation->GetCurrentFrame()), 1.0f);
@@ -592,6 +634,7 @@ update_status ModuleSceneIntro::Update()
 	//Inputs
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
+		App->physics->world->DestroyBody(circles.getLast()->data->body);
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 13));
 		circles.getLast()->data->listener = this;
 	}
@@ -627,12 +670,19 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	//Respawn Ball
+	if (App->player->GetLifes() == 3 && cont == 0) {
+		cont++;
+		circles.add(App->physics->CreateCircle(456, 709, 13));
+		circles.getLast()->data->listener = this;
+	}
 	if (App->player->GetLifes() == 2 && cont == 2) {
+		App->physics->world->DestroyBody(circles.getLast()->data->body);
 		circles.add(App->physics->CreateCircle(456, 709, 13));
 		circles.getLast()->data->listener = this;
 		cont++;
 	}
 	if (App->player->GetLifes() == 1 && cont == 2) {
+		App->physics->world->DestroyBody(circles.getLast()->data->body);
 		circles.add(App->physics->CreateCircle(456, 709, 13));
 		circles.getLast()->data->listener = this;
 		cont++;
@@ -644,8 +694,57 @@ update_status ModuleSceneIntro::Update()
 		}
 		App->player->score = 0;
 		App->player->life = 3;
+		App->physics->world->DestroyBody(circles.getLast()->data->body);
 		circles.add(App->physics->CreateCircle(456, 709, 13));
 		circles.getLast()->data->listener = this;
+	}
+
+	if (ticket == true)
+	{
+		App->physics->world->DestroyBody(sensorticket1->body);
+		ticket = false;
+	}
+	if (ticket1 == true)
+	{
+		App->physics->world->DestroyBody(sensorticket2->body);
+		ticket1 = false;
+
+	}
+	if (ticket2 == true)
+	{
+		App->physics->world->DestroyBody(sensorticket3->body);
+		ticket2 = false;
+
+	}
+	if (ticket3 == true)
+	{
+		App->physics->world->DestroyBody(sensorticket4->body);
+		ticket3 = false;
+
+	}
+	if (ticket4 == true)
+	{
+		App->physics->world->DestroyBody(sensorticket5->body);
+		ticket4 = false;
+
+	}
+	if (ticket5 == true)
+	{
+		App->physics->world->DestroyBody(sensorticket6->body);
+		ticket5 = false;
+
+	}
+	if (ticket6 == true)
+	{
+		App->physics->world->DestroyBody(sensorticket7->body);
+		ticket6 = false;
+
+	}
+	if (ticket7 == true)
+	{
+		App->physics->world->DestroyBody(sensorticket8->body);
+		ticket7 = false;
+
 	}
 
 
@@ -730,35 +829,72 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			App->player->score += 20;
 			ballHit2 = true;
 		}
-		if (bodyB == sensorticket1 || bodyB == sensorticket2)
+		if (bodyB == sensorticket1 )
 		{
 			App->player->score += 10;
-			//App->physics->world->DestroyBody(sensorticket1->body);
-			//PETA!!! IDK XD
+			ticket = true;
+			BlitTicket = true;
+			
+		}
+		if (bodyB == sensorticket2)
+		{
+			App->player->score += 10;
+			ticket1 = true;
+			BlitTicket1 = true;
 		}
 		
-		//if (bodyA == sensorticket3 || bodyB == sensorticket3)
-		//{
-		//	App->player->score += 10;
-		//	//App->physics->world->DestroyBody(sensorticket->body);
-		//	//PETA!!! IDK XD
-		//}
-		//if (bodyA == sensorticket4 || bodyB == sensorticket4)
-		//{
-		//	App->player->score += 10;
-		//	//App->physics->world->DestroyBody(sensorticket->body);
-		//	//PETA!!! IDK XD
-		//}
-		//if (bodyA == sensorticket5 || bodyB == sensorticket5)
-		//{
-		//	App->player->score += 10;
-		//	//App->physics->world->DestroyBody(sensorticket->body);
-		//	//PETA!!! IDK XD
-		//}
-		
-		if (bodyB == sensorAnimals || bodyB==sensorAnimals1 || bodyB == sensorAnimals2)
+		if (bodyA == sensorticket3 || bodyB == sensorticket3)
 		{
-			//FALTA EL TP O DELETEAR LA BOLA 
+			App->player->score += 10;
+			ticket2 = true;
+			BlitTicket2 = true;
+			
+			
+		}
+		if (bodyA == sensorticket4 || bodyB == sensorticket4)
+		{
+			App->player->score += 10;
+			ticket3 = true;
+			BlitTicket3 = true;
+		
+		}
+		if (bodyA == sensorticket5 || bodyB == sensorticket5)
+		{
+			App->player->score += 10;
+			ticket4 = true;
+			BlitTicket4 = true;
+			
+		}
+		if (bodyA == sensorticket6 || bodyB == sensorticket6)
+		{
+			App->player->score += 10;
+			ticket5 = true;
+			BlitTicket5 = true;
+
+		}
+		if (bodyA == sensorticket7 || bodyB == sensorticket7)
+		{
+			App->player->score += 10;
+			ticket6 = true;
+			BlitTicket6 = true;
+
+		}
+		if (bodyA == sensorticket8 || bodyB == sensorticket8)
+		{
+			App->player->score += 10;
+			ticket7 = true;
+			BlitTicket7 = true;
+
+		}
+		
+		if (bodyB == sensorAnimals|| bodyB == sensorAnimals2)
+		{
+			animal = true;
+			tpBall++;
+			App->player->score += 10;
+		}
+		if (bodyB == sensorAnimals1)
+		{
 			App->player->score += 10;
 		}
 
