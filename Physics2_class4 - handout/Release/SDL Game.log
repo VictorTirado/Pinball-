@@ -1,0 +1,40 @@
+﻿  Application.cpp
+E:\Visual Studio2017\VC\Tools\MSVC\14.11.25503\include\limits(211): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  log.cpp
+  Main.cpp
+  ModuleAudio.cpp
+  ModuleFonts.cpp
+ModuleFonts.cpp(57): warning C4018: '<': no coinciden signed/unsigned
+ModuleFonts.cpp(110): warning C4018: '<': no coinciden signed/unsigned
+  ModuleInput.cpp
+  ModulePhysics.cpp
+ModulePhysics.cpp(40): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePhysics.cpp(113): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePhysics.cpp(114): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+ModulePhysics.cpp(319): warning C4018: '<': no coinciden signed/unsigned
+ModulePhysics.cpp(484): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+ModulePhysics.cpp(485): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+ModulePhysics.cpp(491): warning C4244: 'return': conversión de 'float32' a 'int'; posible pérdida de datos
+E:\Visual Studio2017\VC\Tools\MSVC\14.11.25503\include\cmath(113): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  ModulePlayer.cpp
+E:\Visual Studio2017\VC\Tools\MSVC\14.11.25503\include\limits(211): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  ModuleRender.cpp
+  ModuleSceneIntro.cpp
+ModuleSceneIntro.cpp(24): warning C4305: '=': truncamiento de 'float' a 'bool'
+ModuleSceneIntro.cpp(30): warning C4305: '=': truncamiento de 'float' a 'bool'
+ModuleSceneIntro.cpp(827): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+ModuleSceneIntro.cpp(829): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+ModuleSceneIntro.cpp(831): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+ModuleSceneIntro.cpp(834): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+ModuleSceneIntro.cpp(843): warning C4101: 'y1': variable local sin referencia
+ModuleSceneIntro.cpp(843): warning C4101: 'x1': variable local sin referencia
+ModuleSceneIntro.cpp(842): warning C4101: 'y': variable local sin referencia
+ModuleSceneIntro.cpp(842): warning C4101: 'x': variable local sin referencia
+E:\Visual Studio2017\VC\Tools\MSVC\14.11.25503\include\cmath(113): warning C4577: si se usa 'noexcept' sin ningún modo de control de excepciones especificado, la finalización de la excepción no está garantizada. Especifique /EHsc
+  ModuleTextures.cpp
+  ModuleWindow.cpp
+  Generando código
+  All 253 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Generación de código finalizada
+  SDL Game.vcxproj -> C:\Users\USUARIO\Desktop\PinballFisica2\Pinball-\Physics2_class4 - handout\Release\2D Physics - class 4.exe
+  SDL Game.vcxproj -> C:\Users\USUARIO\Desktop\PinballFisica2\Pinball-\Physics2_class4 - handout\Release\2D Physics - class 4.pdb (Full PDB)

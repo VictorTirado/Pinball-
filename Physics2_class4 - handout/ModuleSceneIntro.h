@@ -98,6 +98,8 @@ public:
 	SDL_Rect rect_bg;
 	
 	uint bonus_fx;
+	uint tiger_fx;
+	uint hippopotamus_fx;
 	p2Point<int> ray;
 	bool ray_on;
 	bool ballHit1 = false;

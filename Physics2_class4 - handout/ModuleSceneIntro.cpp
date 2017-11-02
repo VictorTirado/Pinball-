@@ -69,6 +69,8 @@ bool ModuleSceneIntro::Start()
 
 	ball = App->textures->Load("pinball/ball.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	tiger_fx = App->audio->LoadFx("pinball/Tiger.wav");
+	hippopotamus_fx = App->audio->LoadFx("pinball/Hippopotamus.wav");
 	bg = App->textures->Load("pinball/background.png");
 	animations = App->textures->Load("pinball/sprites.png");
 	font = App->fonts->Load("pinball/Fonts.png", "0123456789", 1);
@@ -514,7 +516,7 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	char points[10];
 	sprintf_s(points, 10, "%i", App->player->score);
-	App->fonts->BlitText(150, 10, font, points);
+	App->fonts->BlitText(140, 5, font, points);
 	App->renderer->Blit(animations,  50, 730, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle());
 	App->renderer->Blit(animations, 245, 730, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle());
 	App->renderer->Blit(animations, METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().x-15), METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().y - 10), &(current_animation12->GetCurrentFrame()), 1.0f);
@@ -634,7 +636,7 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(animations, 289, 543, &(current_animation5->GetCurrentFrame()), 1.0f);
 	}
 	
-	if (App->player->score >= 5000) {
+	if (App->player->score >= 3000) {
 		App->renderer->Blit(animations, 171, 445, &(current_animation9->GetCurrentFrame()), 1.0f);
 	}
 
@@ -845,9 +847,8 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			cont = 2;
 		}
 		
-		if ( bodyA == rebounds || bodyB == rebounds || bodyA == rebounds1 || bodyB == rebounds1 || bodyA == rebounds2 || bodyB == rebounds2 || bodyA == rebounds3 || bodyB == rebounds3) {
+		if (bodyB == rebounds || bodyB == rebounds1 ||bodyB == rebounds2 || bodyB == rebounds3) {
 			App->player->score += 10;
-
 		}
 		if (bodyB == sensorBall1) {
 			App->player->score += 20;
@@ -923,21 +924,23 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		}
 		
-		if (bodyB == sensorAnimals|| bodyB == sensorAnimals2)
+		if (bodyB == sensorAnimals)
 		{
 			animal = true;
 			tpBall++;
 			App->player->score += 10;
+			App->audio->PlayFx(hippopotamus_fx);
+		}
+		if (bodyB == sensorAnimals2)
+		{
+			animal = true;
+			tpBall++;
+			App->player->score += 10;
+			App->audio->PlayFx(tiger_fx);
 		}
 		if (bodyB == sensorAnimals1)
 		{
 			App->player->score += 10;
 		}
-
-		//App->audio->PlayFx(bonus_fx);
 	}
-
-
-
-
 }
