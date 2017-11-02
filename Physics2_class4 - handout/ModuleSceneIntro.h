@@ -23,15 +23,32 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> rods;
 
+	
+	
+	PhysBody* bars;
+	
 	PhysBody* sensor;
 	PhysBody* sensorBall1;
 	PhysBody* sensorBall2;
 	PhysBody* sensorBall3;
 	PhysBody* rebounds;
+	PhysBody* rebounds1;
+	PhysBody* rebounds2;
+	PhysBody* rebounds3;
 	PhysBody* animals;
 	PhysBody* sensorAnimals;
 	PhysBody* sensorAnimals1;
 	PhysBody* sensorAnimals2;
+	PhysBody* sensorticket1;
+	PhysBody* sensorticket2;
+	PhysBody* sensorticket3;
+	PhysBody* sensorticket4;
+	PhysBody* sensorticket5;
+	PhysBody* sensorticket6;
+	PhysBody* sensorticket7;
+	PhysBody* sensorticket8;
+
+	
 	
 
 	bool sensed;
@@ -49,6 +66,8 @@ public:
 	Animation* current_animation11 = nullptr;
 	Animation* current_animation12 = nullptr;
 	Animation* current_animation13 = nullptr;
+	Animation* current_animation14 = nullptr;
+	Animation* current_animation15 = nullptr;
 
 	Animation arrow;
 	Animation arrow2;
@@ -63,14 +82,15 @@ public:
 	Animation flipperR;
 	Animation spring;
 	Animation ballLight;
+	Animation blueticket;
+	Animation greenticket;
 
 	Animation idle;
 	SDL_Texture* box;
 	SDL_Texture* ball;
 	SDL_Texture* bg;
-
-	
 	SDL_Texture* animations;
+
 	SDL_Rect arrows;
 	SDL_Rect rect_bg;
 	

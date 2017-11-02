@@ -45,6 +45,10 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	spring.PushBack({ 806,419,29,48 });
 
 	ballLight.PushBack({ 348,95,62,62 });
+
+	blueticket.PushBack({ 308,587,51,26 });
+	greenticket.PushBack({ 308,536,46,23 });
+
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -63,7 +67,7 @@ bool ModuleSceneIntro::Start()
 	ball = App->textures->Load("pinball/ball.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	bg = App->textures->Load("pinball/background.png");
-	animations = App->textures->Load("Pinball/sprites.png");
+	animations = App->textures->Load("pinball/sprites.png");
 	rect_bg.h = SCREEN_HEIGHT;
 	rect_bg.w = SCREEN_WIDTH;
 	rect_bg.x = 0;
@@ -398,25 +402,25 @@ bool ModuleSceneIntro::Start()
 	circles->body->GetFixtureList()->SetRestitution(2.5f);
 
 	//Bars
-	bg = App->physics->CreateChain(0, 0, bar, 16);
-	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bars = App->physics->CreateChain(0, 0, bar, 16);
+	bars->body->SetType(b2_staticBody);
+	bars->body->GetFixtureList()->SetDensity(0.1f);
 
-	bg = App->physics->CreateChain(0, 0, bar1, 16);
-	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bars = App->physics->CreateChain(0, 0, bar1, 16);
+	bars->body->SetType(b2_staticBody);
+	bars->body->GetFixtureList()->SetDensity(0.1f);
 
-	bg = App->physics->CreateChain(0, 0, bar2, 18);
-	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bars = App->physics->CreateChain(0, 0, bar2, 18);
+	bars->body->SetType(b2_staticBody);
+	bars->body->GetFixtureList()->SetDensity(0.1f);
 
-	bg = App->physics->CreateChain(0, 0, bar3, 18);
-	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bars = App->physics->CreateChain(0, 0, bar3, 18);
+	bars->body->SetType(b2_staticBody);
+	bars->body->GetFixtureList()->SetDensity(0.1f);
 
-	bg = App->physics->CreateChain(0, 0, bar4, 16);
-	bg->body->SetType(b2_staticBody);
-	bg->body->GetFixtureList()->SetDensity(0.1f);
+	bars = App->physics->CreateChain(0, 0, bar4, 16);
+	bars->body->SetType(b2_staticBody);
+	bars->body->GetFixtureList()->SetDensity(0.1f);
 
 	//Rebounds(Blue)
 	
@@ -424,17 +428,17 @@ bool ModuleSceneIntro::Start()
 	rebounds->body->SetType(b2_staticBody);
 	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
 
-	rebounds = App->physics->CreateChain(0, 0, rebound1, 10);
-	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
+	rebounds1 = App->physics->CreateChain(0, 0, rebound1, 10);
+	rebounds1->body->SetType(b2_staticBody);
+	rebounds1->body->GetFixtureList()->SetRestitution(2.0f);
 
-	rebounds = App->physics->CreateChain(0, 0, rebound2, 10);
-	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
+	rebounds2 = App->physics->CreateChain(0, 0, rebound2, 10);
+	rebounds2->body->SetType(b2_staticBody);
+	rebounds2->body->GetFixtureList()->SetRestitution(2.0f);
 
-	rebounds = App->physics->CreateChain(0, 0, rebound3, 10);
-	rebounds->body->SetType(b2_staticBody);
-	rebounds->body->GetFixtureList()->SetRestitution(2.0f);
+	rebounds3 = App->physics->CreateChain(0, 0, rebound3, 10);
+	rebounds3->body->SetType(b2_staticBody);
+	rebounds3->body->GetFixtureList()->SetRestitution(2.0f);
 
 	//Animals
 	
@@ -447,26 +451,23 @@ bool ModuleSceneIntro::Start()
 	animals->body->GetFixtureList()->SetDensity(0.1f);
 	animals->body->GetFixtureList()->SetRestitution(0.1f);
 
-	sensorAnimals = App->physics->CreateCircleSensor(60, 231, 15);
-	sensorAnimals1 = App->physics->CreateRectangleSensor(233, 118, 29, 4);
-	sensorAnimals2= App->physics->CreateCircleSensor(405, 246, 15);
-	
-
-
-
 	App->physics->createFlipperR();
-
 	App->physics->createFlipperL();
-
 	App->physics->createSpring();
-
-
-
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT + 50, SCREEN_WIDTH, 50);
 	sensorBall1 = App->physics->CreateCircleSensor(167, 320, 34);
 	sensorBall2 = App->physics->CreateCircleSensor(304, 320, 34);
 	sensorBall3 = App->physics->CreateCircleSensor(230, 403, 34);
+
+	sensorAnimals = App->physics->CreateCircleSensor(60, 231, 15);
+	sensorAnimals1 = App->physics->CreateRectangleSensor(233, 118, 29, 4);
+	sensorAnimals2 = App->physics->CreateCircleSensor(405, 246, 15);
+
+	sensorticket1 = App->physics->CreateRectangleSensor(175, 135, 51, 26);
+	sensorticket2 = App->physics->CreateRectangleSensor(300, 135, 51, 26);
+
+	
 
 	return ret;
 }
@@ -495,13 +496,39 @@ update_status ModuleSceneIntro::Update()
 	current_animation11 = &flipperR;
 	current_animation12 = &spring;
 	current_animation13 = &ballLight;
-
+	current_animation14 = &blueticket;
+	current_animation15 = &greenticket;
 	
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	App->renderer->Blit(animations, 135, 740, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle(),-0.5f);
 	App->renderer->Blit(animations, 245, 740, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle(),0.5f);
 	App->renderer->Blit(animations, METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().x-15), METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().y - 10), &(current_animation12->GetCurrentFrame()), 1.0f);
+	if (App->player->GetLifes() == 3 && cont==0) {
+		cont++;
+		circles.add(App->physics->CreateCircle(456, 709, 13));
+		circles.getLast()->data->listener = this;
+	}
+	if (App->player->GetScore() >= 500)
+	{
+		App->renderer->Blit(animations, 217, 300, &(current_animation15->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 217, 330, &(current_animation15->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 133, 388, &(current_animation15->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 133, 418, &(current_animation15->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 280, 388, &(current_animation15->GetCurrentFrame()), 1.0f);
+		App->renderer->Blit(animations, 280, 418, &(current_animation15->GetCurrentFrame()), 1.0f);
+
+		
+		sensorticket3 = App->physics->CreateRectangleSensor(240, 312, 51, 26);
+		sensorticket4 = App->physics->CreateRectangleSensor(240, 342, 51, 26);
+		sensorticket5 = App->physics->CreateRectangleSensor(155, 400, 51, 26);
+		sensorticket6 = App->physics->CreateRectangleSensor(155, 430, 51, 26);
+		sensorticket7 = App->physics->CreateRectangleSensor(303, 400, 51, 26);
+		sensorticket8 = App->physics->CreateRectangleSensor(303, 430, 51, 26);
+	}
+
 	
+	App->renderer->Blit(animations, 149, 123, &(current_animation14->GetCurrentFrame()), 1.0f);
+	App->renderer->Blit(animations, 275, 123, &(current_animation14->GetCurrentFrame()), 1.0f);
 	if (ballHit1 == true) {
 		App->renderer->Blit(animations, 167, 320, &(current_animation13->GetCurrentFrame()), 1.0f);
 		ballHit1 = false;
@@ -600,12 +627,12 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	//Respawn Ball
-	if (App->player->GetLifes() == 2 && cont == 1) {
+	if (App->player->GetLifes() == 2 && cont == 2) {
 		circles.add(App->physics->CreateCircle(456, 709, 13));
 		circles.getLast()->data->listener = this;
 		cont++;
 	}
-	if (App->player->GetLifes() == 1 && cont == 1) {
+	if (App->player->GetLifes() == 1 && cont == 2) {
 		circles.add(App->physics->CreateCircle(456, 709, 13));
 		circles.getLast()->data->listener = this;
 		cont++;
@@ -690,27 +717,51 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	int x, y;
 	int x1, y1;
 	if (bodyA != NULL && bodyB != NULL) {
-		if (bodyB == sensor) {
+		if (bodyA== sensor || bodyB == sensor) {
 			App->player->LoseLife();
-			cont = 1;
+			cont = 2;
 		}
-		if (bodyB == sensorBall1) {
-			App->player->score += 20;
-			ballHit1 = true;
+		
+		if ( bodyA == rebounds || bodyB == rebounds || bodyA == rebounds1 || bodyB == rebounds1 || bodyA == rebounds2 || bodyB == rebounds2 || bodyA == rebounds3 || bodyB == rebounds3) {
+			App->player->score += 10;
+
 		}
-		if (bodyB == sensorBall2) {
+		if (bodyA == sensorBall1 || bodyB == sensorBall1 || bodyA == sensorBall2 || bodyB == sensorBall2 || bodyA == sensorBall3 || bodyB == sensorBall3) {
 			App->player->score += 20;
 			ballHit2 = true;
 		}
-		if (bodyB == sensorBall3) {
-			App->player->score += 20;
-			ballHit3 = true;
+		if (bodyB == sensorticket1 || bodyB == sensorticket2)
+		{
+			App->player->score += 10;
+			//App->physics->world->DestroyBody(sensorticket1->body);
+			//PETA!!! IDK XD
 		}
+		
+		//if (bodyA == sensorticket3 || bodyB == sensorticket3)
+		//{
+		//	App->player->score += 10;
+		//	//App->physics->world->DestroyBody(sensorticket->body);
+		//	//PETA!!! IDK XD
+		//}
+		//if (bodyA == sensorticket4 || bodyB == sensorticket4)
+		//{
+		//	App->player->score += 10;
+		//	//App->physics->world->DestroyBody(sensorticket->body);
+		//	//PETA!!! IDK XD
+		//}
+		//if (bodyA == sensorticket5 || bodyB == sensorticket5)
+		//{
+		//	App->player->score += 10;
+		//	//App->physics->world->DestroyBody(sensorticket->body);
+		//	//PETA!!! IDK XD
+		//}
+		
 		if (bodyB == sensorAnimals || bodyB==sensorAnimals1 || bodyB == sensorAnimals2)
 		{
-		
-			App->player->score += 1000;
+			//FALTA EL TP O DELETEAR LA BOLA 
+			App->player->score += 10;
 		}
+
 		App->audio->PlayFx(bonus_fx);
 	}
 

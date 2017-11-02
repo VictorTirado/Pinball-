@@ -54,6 +54,7 @@ public:
 	b2Body* sawBody;
 	b2Body* sawBody2;
 	b2Body* sawBody3;
+	
 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
