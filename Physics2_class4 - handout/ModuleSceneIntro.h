@@ -123,4 +123,6 @@ public:
 
 	bool animal = false;
 	int tpBall = 0;
+
+	int lightTimer = 0;
 };

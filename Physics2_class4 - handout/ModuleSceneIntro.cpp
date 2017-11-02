@@ -393,39 +393,44 @@ bool ModuleSceneIntro::Start()
 
 	circles = App->physics->CreateCircle(167, 320, 33);
 	circles->body->SetType(b2_staticBody);
-	circles->body->GetFixtureList()->SetDensity(0.5f);
-	circles->body->GetFixtureList()->SetRestitution(2.5f);
+	circles->body->GetFixtureList()->SetDensity(10.0f);
+	circles->body->GetFixtureList()->SetRestitution(1.5f);
 
 	circles = App->physics->CreateCircle(304, 320, 33);
 	circles->body->SetType(b2_staticBody);
-	circles->body->GetFixtureList()->SetDensity(0.5f);
-	circles->body->GetFixtureList()->SetRestitution(2.5f);
+	circles->body->GetFixtureList()->SetDensity(10.0f);
+	circles->body->GetFixtureList()->SetRestitution(1.5f);
 
 	circles = App->physics->CreateCircle(230, 403, 33);
 	circles->body->SetType(b2_staticBody);
-	circles->body->GetFixtureList()->SetDensity(0.5f);
-	circles->body->GetFixtureList()->SetRestitution(2.5f);
+	circles->body->GetFixtureList()->SetDensity(10.0f);
+	circles->body->GetFixtureList()->SetRestitution(1.5f);
 
 	//Bars
 	bars = App->physics->CreateChain(0, 0, bar, 16);
 	bars->body->SetType(b2_staticBody);
 	bars->body->GetFixtureList()->SetDensity(0.1f);
+	bars->body->GetFixtureList()->SetRestitution(0.5f);
 
 	bars = App->physics->CreateChain(0, 0, bar1, 16);
 	bars->body->SetType(b2_staticBody);
 	bars->body->GetFixtureList()->SetDensity(0.1f);
+	bars->body->GetFixtureList()->SetRestitution(0.5f);
 
 	bars = App->physics->CreateChain(0, 0, bar2, 18);
 	bars->body->SetType(b2_staticBody);
 	bars->body->GetFixtureList()->SetDensity(0.1f);
+	bars->body->GetFixtureList()->SetRestitution(0.5f);
 
 	bars = App->physics->CreateChain(0, 0, bar3, 18);
 	bars->body->SetType(b2_staticBody);
 	bars->body->GetFixtureList()->SetDensity(0.1f);
+	bars->body->GetFixtureList()->SetRestitution(0.5f);
 
 	bars = App->physics->CreateChain(0, 0, bar4, 16);
 	bars->body->SetType(b2_staticBody);
 	bars->body->GetFixtureList()->SetDensity(0.1f);
+	bars->body->GetFixtureList()->SetRestitution(0.5f);
 
 	//Rebounds(Blue)
 	
@@ -509,7 +514,7 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(bg, 0, 0, &rect_bg, 1.0f);
 	char points[10];
 	sprintf_s(points, 10, "%i", App->player->score);
-	App->fonts->BlitText(196, 15, font, points);
+	App->fonts->BlitText(150, 10, font, points);
 	App->renderer->Blit(animations,  50, 730, &(current_animation10->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody2->GetAngle());
 	App->renderer->Blit(animations, 245, 730, &(current_animation11->GetCurrentFrame()), 1.0f, RADTODEG *App->physics->sawBody->GetAngle());
 	App->renderer->Blit(animations, METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().x-15), METERS_TO_PIXELS(App->physics->sawBody3->GetPosition().y - 10), &(current_animation12->GetCurrentFrame()), 1.0f);
@@ -574,17 +579,36 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(animations, 280, 418, &(current_animation15->GetCurrentFrame()), 1.0f);
 	}
 
-	if (ballHit1 == true) {
-		App->renderer->Blit(animations, 167, 320, &(current_animation13->GetCurrentFrame()), 1.0f);
-		ballHit1 = false;
+	//BallLight
+	if (ballHit1 == true && lightTimer<=15) {
+		App->renderer->Blit(animations, 135, 290, &(current_animation13->GetCurrentFrame()), 1.0f);
+		if (lightTimer == 15) {
+			ballHit1 = false;
+			lightTimer = 0;
+		}
+		else {
+			lightTimer++;
+		}
 	}
-	if (ballHit2 == true) {
-		App->renderer->Blit(animations, 304, 320, &(current_animation13->GetCurrentFrame()), 1.0f);
-		ballHit2 = false;
+	if (ballHit2 == true && lightTimer <= 15) {
+		App->renderer->Blit(animations, 275, 290, &(current_animation13->GetCurrentFrame()), 1.0f);
+		if (lightTimer == 15) {
+			ballHit2 = false;
+			lightTimer = 0;
+		}
+		else {
+			lightTimer++;
+		}
 	}
-	if (ballHit3 == true) {
-		App->renderer->Blit(animations, 230, 403, &(current_animation13->GetCurrentFrame()), 1.0f);
-		ballHit3 = false;
+	if (ballHit3 == true && lightTimer <= 15) {
+		App->renderer->Blit(animations, 200, 370, &(current_animation13->GetCurrentFrame()), 1.0f);
+		if (lightTimer == 15) {
+			ballHit3 = false;
+			lightTimer = 0;
+		}
+		else {
+			lightTimer++;
+		}
 	}
 	
 	
@@ -825,10 +849,22 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			App->player->score += 10;
 
 		}
-		if (bodyA == sensorBall1 || bodyB == sensorBall1 || bodyA == sensorBall2 || bodyB == sensorBall2 || bodyA == sensorBall3 || bodyB == sensorBall3) {
+		if (bodyB == sensorBall1) {
+			App->player->score += 20;
+			ballHit1 = true;
+			App->audio->PlayFx(bonus_fx);
+		}
+		if (bodyB == sensorBall2) {
 			App->player->score += 20;
 			ballHit2 = true;
+			App->audio->PlayFx(bonus_fx);
 		}
+		if (bodyB == sensorBall3) {
+			App->player->score += 20;
+			ballHit3 = true;
+			App->audio->PlayFx(bonus_fx);
+		}
+
 		if (bodyB == sensorticket1 )
 		{
 			App->player->score += 10;
@@ -898,7 +934,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 			App->player->score += 10;
 		}
 
-		App->audio->PlayFx(bonus_fx);
+		//App->audio->PlayFx(bonus_fx);
 	}
 
 
